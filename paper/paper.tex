@@ -1,0 +1,120 @@
+%\documentclass[lualatex,twoside,a4j]{ltjsarticle}
+%\documentclass[oneside,a4j]{ltjsarticle}% 片面印刷用
+\documentclass[twoside,a4j]{ltjsarticle}% 両面印刷用
+
+
+\newcommand{\論文題目}{論文のタイトルをここに書く\\ 長い場合は二行目に渡っても良い}%% 改行の場所は \\ を使う
+\newcommand{\英文題目}{A Study of Hoge Hoge Hoge Hoge}
+\newcommand{\学籍番号}{1234567}
+\newcommand{\クラス名列番号}{4EP0-00}
+\newcommand{\氏名}{工大 次郎}    % 名字と名前の間に半角スペースを入れる
+
+%%% 以下は固定
+\newcommand{\年度}{5}
+\newcommand{\提出日}{\和暦{}\today}
+\newcommand{\指導教員}{坂本 真仁 講師}
+\usepackage{sbase}
+
+\begin{document}
+
+\pagestyle{empty}
+\vspace{10cm}
+{\Large\bfseries
+\noindent
+令和\年度{}年度\ プロジェクトデザイン$\textrm{I\hspace{-.15em}I\hspace{-.15em}I}$ プロジェクトレポート\\
+金沢工業大学\ 工学部\ 情報工学科\\
+
+\vspace{4cm}
+{\Huge\bfseries
+\begin{center}
+\論文題目
+\end{center}
+}
+{\bfseries
+\begin{center}
+\英文題目
+\end{center}
+}
+
+\vspace{6cm}
+\begin{flushright}
+\begin{tabular}{rl}
+  学\hfill{}籍\hfill{}番\hfill{}号：
+  & \学籍番号  \\
+  ク\hfill{}ラ\hfill{}ス\hfill{}名\hfill{}列\hfill{}番\hfill{}号：
+  & \クラス名列番号  \\
+  氏\hfill{}名：
+  & \氏名      \\
+  提\hfill{}出\hfill{}日：
+  & \提出日    \\
+  指\hfill{}導\hfill{}教\hfill{}員：
+  & \指導教員  \\
+\end{tabular}
+\end{flushright}
+}
+
+\clearpage
+%%%%% 両面印刷の場合に表紙の裏を白紙にする
+%%%%% 差し替えたときに目次を表紙の裏にしないため
+%\thispagestyle{empty}
+\hspace{5mm}
+\clearpage
+\noindent {\huge{概要}}\\ \vspace{5mm}
+
+{\large{
+\input{documents/abstract.tex}
+\vfill
+\noindent {\huge{実施報告}}\\ \vspace{5mm}
+
+{\bfseries{活動履歴}}
+\begin{center}
+\begin{tabular}{rlr} \hline
+  \multicolumn{1}{c}{ {\bfseries {期間} }} &
+  \multicolumn{1}{c}{ {\bfseries {活動内容} }} &
+  \multicolumn{1}{c}{ {\bfseries {活動時間[h]} }}
+    \input{documents/activity_history.tex}
+\end{tabular}
+\end{center}
+}}
+\clearpage
+\pagestyle{headings}
+\pagenumbering{roman}
+\setcounter{page}{1}
+%%% 本文中では clearpageを使用してはならない
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ここまで表紙
+\tableofcontents
+
+% 以下の目次は不要であれば消す
+% 図目次
+\listoffigures
+% 表目次
+\listoftables
+% ソースコード目次
+\lstlistoflistings
+
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%% ここから本文を書く
+
+
+\input{documents/introduction.tex}
+
+\input{documents/related_research.tex}
+
+\input{documents/method.tex}
+
+\input{documents/evaluation.tex}
+
+\input{documents/conclusion.tex}
+
+\input{documents/acknowledgement.tex}
+
+\bibliographystyle{junsrt}
+\bibliography{reference.bib}
+
+\input{documents/appendix.tex}
+
+
+\end{document}

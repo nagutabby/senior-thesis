@@ -1,0 +1,169 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%			This is a template for Sakamoto Lab at Kanazawa Institute of Technology, Japan
+%%%			Presented by Shinji Sakamoto.
+%%%
+%%%			Uploaded on 20-th November, 2021
+%%%
+%%%			Least update is 26-th September, 2023
+%%%
+%%%			Contact:	sskmt@acm.org
+%%%
+%%%			How to use
+%%%				1,	just include this style package in your [.tex] file, . like follows.
+%%%					\usepackage{sbase}
+%%%
+%%%				2,	All you have to do is to choose package or effect
+%%%					and then check it weather comment out or not.
+%%%
+%%%					Enjoy your LaTeX
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	このテンプレートは金沢工業大学2023年度卒業論文用に準拠しています．
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\equationautorefname~#1\null{\textrm{式~(#1)}\null}
+\def\figureautorefname~#1\null{図~#1 \null}
+\def\tableautorefname~#1\null{表~#1 \null}
+\def\algorithmautorefname~#1\null{ Algorithm~#1 \null}
+\def\pageautorefname~#1\null{~#1ページ \null}
+\def\appendixautorefname~#1\null{~#1 \null}
+
+\newcommand{\subfigureautorefname}{\figureautorefname}
+\newcommand{\subtableautorefname}{\tableautorefname}
+
+\def\sectionautorefname~#1\null{第~#1~章\null}
+\def\subsectionautorefname~#1\null{第~#1~節\null}
+\def\subsubsectionautorefname~#1\null{第~#1~項\null}
+\def\paragraphautorefname~#1\null{第~#1~項\null}
+
+
+% the caption label for it.
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+% the header name for the list of it.
+\renewcommand{\listfigurename}{図目次}
+\renewcommand{\listtablename}{表目次}
+
+%\def\chapterautorefname~#1\null{第~#1~章\null}
+%\def\sectionautorefname~#1\null{第~#1~節\null}
+%\def\subsectionautorefname~#1\null{第~#1~項\null}
+%\def\subsubsectionautorefname~#1\null{第~#1~項\null}
+%\def\paragraphautorefname~#1\null{第~#1~項\null}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%			パッケージ群
+%%%				もしパッケージでpLaTeXがエラーを出力した場合は
+%%%				かなりの高確率でインターネット上に落ちているので
+%%%				自分で手に入れ，それぞれの方法でインストールすること
+%%%				インストールしなくても.texファイルと
+%%%				同じディレクトリにおくことで使うことは可能
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{tascmac}
+\usepackage{physics}
+\usepackage[
+    colorlinks=true,%
+		linkcolor=black,%
+		filecolor=black,%
+		urlcolor=black,%
+%		colorlinks=true,%
+%		linkcolor=blue,%
+%		filecolor=blue,%
+%		urlcolor=blue,%
+		setpagesize=false,%
+        bookmarks=true,bookmarksnumbered=true,
+        bookmarkstype=toc,%
+        pdftitle={\氏名{}：令和5年度金沢工業大学卒業論文},%
+        pdfsubject={\論文題目},%
+        pdfauthor={\氏名}%,%
+        %pdfkeywords={キーワード1, キーワード2}%
+        ]{hyperref}
+%%
+\usepackage{url}%														%文書内でURLを記述するときに使う
+\usepackage{color}%
+\usepackage{caption}%					 						%subfigの改良版（これが推奨されてる）
+\usepackage{subcaption}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%%					ユーザ定義部分
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ソースコード用linstings
+\usepackage{multicol}
+\usepackage{listings}
+\definecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+%
+\definecolor{colFunc}{rgb}{1,0.07,0.54}
+%
+\definecolor{CadetBlue}{cmyk}{0.62,0.57,0.23,0}
+%
+\definecolor{Brown}{cmyk}{0,0.81,1,0.60}
+%
+\definecolor{colID}{rgb}{0.63,0.44,0}
+
+\lstset{
+	language=C++,%プログラミング言語によって変える
+	%basicstyle={\ttfamily\footnotesize},
+	%basicstyle={\ttfamily\normalsize},
+	basicstyle={\ttfamily\footnotesize},
+	%basicstyle={\ttfamily\tiny},
+	keywordstyle={\color{OliveGreen}},
+%	%\[2\]\[3\]はプログラミング言語によってあったり、なかったり
+	keywordstyle={[2]\color{colFunc}},
+	keywordstyle={[3]\color{CadetBlue}},%
+	commentstyle={\color{Brown}},
+	identifierstyle={\color{colID}},
+	stringstyle=\color{blue},
+% xleftmargin=2.5zw,
+	tabsize=2,
+	frame=trBL,
+	numbers=left,
+	%	numberstyle={\ttfamily\small},
+	numberstyle={\ttfamily\tiny},
+	breaklines=true,%折り返し
+	%	backgroundcolor={\color[gray]{.95}},
+	%captionpos=b
+	captionpos=t
+}
+
+%% ソースコード目次
+\def\lstlistingautorefname~#1\null{ソースコード~#1 \null}
+\renewcommand{\lstlistingname}{ソースコード}
+\renewcommand{\lstlistlistingname}{ソースコード目次}
+
+
+
+% Tikz
+\usepackage{tikz}
+\usetikzlibrary{calc,intersections,positioning,shapes,arrows}
+\usepackage{circuitikz}
+
+% ベクトルを表すときに使ってる
+\def\vector#1{\mbox{\boldmath $#1$}}
+\newcommand{\highlight}[2][yellow]{\tikz[baseline=(x.base)]{\node[rectangle,rounded corners,fill=#1!10](x){#2};}}
+\newcommand{\highlightcap}[3][yellow]{\tikz[baseline=(x.base)]{\node[rectangle,rounded corners,fill=#1!10](x){#2} node[below of=x, color=#1]{#3};}}
+
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand*{\thesubfigure}{(\alph{subfigure})}
+
+
+
+
+
