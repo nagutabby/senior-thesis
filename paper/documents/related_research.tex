@@ -1,4 +1,4 @@
-\section{関連研究}\label{sec:関連研究}
+\section{関連研究}\label{section:関連研究}
 %\begin{itemize}
 %  \item PWAの構成要素
 %  \begin{itemize}
@@ -10,3 +10,49 @@
 %    \item 関連研究と自分の研究を比べた場合の相違点を述べる
 %  \end{itemize}
 %\end{itemize}
+関連研究としては、PWAを構成する要素の性質を調査したもの、PWAとモバイルアプリとの比較によって有用性を評価したもの、PWAの開発方法に着目し、クロスプラットフォーム開発との特徴の違いを整理したものなどがある。それぞれの概要を説明し、関連研究における課題を整理する。
+\subsection{PWAの構成要素とその性質}\label{subsection:PWAの構成要素とその性質}
+PWAの構成要素にはApp Shell、Service Worker、Web Application Manifestがあり、それぞれの性質は以下の通りである~\cite{Tandel2018ProgressiveWebApps}。
+\subsubsection{App Shellの性質}\label{subsubsection:App Shellの性質}
+\begin{itemize}
+    \item パフォーマンスが高い
+    \begin{itemize}
+      \item キャッシュされたコンテンツを利用することで高速にページを読み込めるため、通常のWebアプリと比べてパフォーマンスが高い。これはアプリに再びアクセスした際にページが即座に読み込まれることを意味する。
+    \end{itemize}
+    \item ネイティブアプリに近い操作性を実現
+    \begin{itemize}
+        \item Cache APIを利用することでオフライン環境でも動作する。PWAが考案される前は、ネイティブアプリのみがオフラインアクセスをサポートしていた。PWAによってネイティブアプリに近い操作性を実現するWebアプリが登場したことで、Webアプリの多様化が進んだ。
+    \end{itemize}
+    \item データの使用効率が高い
+    \begin{itemize}
+        \item UIをキャッシュするためページ遷移を行う際のデータ使用量が削減される。これによってデータの使用効率が高くなり、より少ないデータ使用量でページをレンダリングできるようになる。
+    \end{itemize}
+\end{itemize}
+\subsubsection{Service Workerの性質}\label{Service Workerの性質}
+\begin{itemize}
+    \item オフラインアクセスを提供
+    \begin{itemize}
+        \item キャッシュしたネットワークレスポンスを使用してオフラインアクセスを提供できる。通信が不安定な環境でもアプリを利用できるようになるため、ユーザー体験が向上し、ユーザーに新たな価値を提供できるようになる、
+    \end{itemize}
+    \item プッシュ通知を提供
+    \begin{itemize}
+        \item ユーザーのモバイル端末やデスクトップ端末に直接送信されるメッセージであるプッシュ通知を提供できる。プッシュ通知を効果的に活用することで、アプリの利用を促進してコンバージョン率を向上させたり、行動パターンをより詳細に分析したりできるようになる。
+    \end{itemize}
+    \item バックグラウンドでコンテンツを更新
+    \begin{itemize}
+        \item Periodic Background Synchronization APIを用いることでバックグラウンドでコンテンツを更新できる。コンテンツを同期する際にユーザーの直接的な操作が不要になり、ユーザーに常に最新の情報を提供できる。
+    \end{itemize}
+    \item 柔軟なキャッシュ制御
+    \begin{itemize}
+        \item 一部のコンテンツのみをキャッシュしたり、一定の時間間隔でキャッシュを更新したりできるため、Cache Storageの使用量を削減してアプリのサイズを小さくしたり、古いコンテンツがキャッシュされたままになるのを回避できる。
+    \end{itemize}
+\end{itemize}
+\subsubsection{Web Application Manifestの性質}\label{subsubsection:Web Application Manifestの性質}
+\begin{itemize}
+    \item アプリに関する情報を提供
+    \begin{itemize}
+        \item アプリの名前、説明、作者、アイコンのパスなどの情報を提供できる。これらのメタデータをWebアプリに追加することで、Webアプリを特定のプラットフォームに適合させられる。
+    \end{itemize}
+\end{itemize}
+\subsubsection{PWAの構成要素とその性質に関する研究の課題}
+実際のアプリでは、PWAが理想とする振る舞いを必ずしも実現できるとは限らない。例えば、バックグラウンドでのコンテンツの更新をサポートしている主なWebブラウザーは2023年11月時点でGoogle ChromeとMicrosoft Edgeのみであり、バックグラウンド同期に関する懸念も表明されている(詳しくは後述する)。また、Webブラウザー間でPWAの実装が異なるため、それを考慮する必要もある。
