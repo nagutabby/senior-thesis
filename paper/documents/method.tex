@@ -1,19 +1,92 @@
 \section{研究内容}\label{section:研究内容}
+%\begin{itemize}
+%  \item Web APIの対応状況の調査
+%  \begin{itemize}
+%    \item Release Notes
+%    \begin{itemize}
+%      \item Webブラウザーベンダーが提供しているRelease Notesを利用することでWeb APIの対応状況を調査できることを示す
+%    \end{itemize}
+%    \item Positions
+%    \begin{itemize}
+%      \item Webブラウザーベンダーやコミュニティが提供しているPositionsを利用することで一部のWeb APIに対する意見や主張を調査できることを示す
+%    \end{itemize}
+%  \end{itemize}
+%  \item Service Workerのパフォーマンス評価
+%  \begin{itemize}
+%    \item Lighthouseとネットワークスロットリングを用いることでService Workerのパフォーマンス評価ができることを示す
+%    \item ネットワークスロットリングの種類や、パケットレベルのネットワークスロットリングを用いる利点を説明する
+%  \end{itemize}
+%\end{itemize}
+観光案内アプリにPWAを導入することを想定して調査や分析を行う。まずはPWAと深い関わりがWeb APIの、PWAにおける有用性を調査する。続いてService Workerのパフォーマンスを評価する。
+\subsection{PWAにおけるWeb APIの有用性の調査}\label{subsection:PWAにおけるWeb APIの有用性の調査}
+Web APIはPWAをプラットフォーム固有のアプリ(ネイティブアプリ)に近づけるために不可欠な技術である。ネイティブアプリの機能の多くはSDK(Software Development Kit)により提供されている。SDKは、特定のフレームワークやプラットフォーム上にアプリケーションを構築するために使用する開発ツールのセットである。Webアプリ開発では、SDKの代わりにWeb APIを使用できる。API(Application Programming Interface)はプログラム同士が相互に通信するための方法である。SDKと同様に、開発者が複雑な機能をより簡単に作成できるようにするために提供されており、APIを使用することで複雑なコードが抽象化され、構文がより簡潔になる。Web APIはこのAPIの1つであり、HTTPなどのWebの技術を利用したものである。Web APIにはいくつかの種類があるが、この論文では特に、WebブラウザーのAPIのうち、W3Cなどにより標準化されたものを扱うことにする。以後この論文では、Webブラウザーの標準化されたAPIという意味でWeb APIという語句を使用する。
+\subsubsection{Web APIのWebブラウザー側の対応状況の調査}\label{subsubsection:Web APIのWebブラウザー側の対応状況の調査}
+開発者が実際に特定のWeb APIを利用するためには、WebブラウザーがそのWeb APIに対応している必要がある。特に、シェアが大きいWebブラウザーの対応状況や、レンダリングエンジンが異なるWebブラウザー間の対応状況を把握することは、Webアプリのコンバージョンを高めたり、自由なWebを維持したりする上で重要である。主要なWebブラウザーのシェアや特徴は以下の通りである。なお、シェアはすべてのプラットフォームの2023年9月時点のデータを基に算出している~\cite{StatCounterBrowserMarketShare}。
 \begin{itemize}
-  \item Web APIの対応状況の調査
-  \begin{itemize}
-    \item Release Notes
+    \item Google Chrome
     \begin{itemize}
-      \item Webブラウザーベンダーが提供しているRelease Notesを利用することでWeb APIの対応状況を調査できることを示す
+        \item シェア: 約63\%
+        \item レンダリングエンジン
+        \begin{itemize}
+            \item HTML: Blink
+            \item JavaScript: V8
+        \end{itemize}
+        \item チャンネル~\cite{GoogleChromeChannels}
+        \begin{itemize}
+            \item Stable
+            \item Extended Stable
+            \item Beta
+            \item Dev
+            \item Canary
+        \end{itemize}
     \end{itemize}
-    \item Positions
+    \item Safari
     \begin{itemize}
-      \item Webブラウザーベンダーやコミュニティが提供しているPositionsを利用することで一部のWeb APIに対する意見や主張を調査できることを示す
+        \item シェア: 約20\%
+        \item レンダリングエンジン
+        \begin{itemize}
+            \item HTML: WebKit
+            \item JavaScript: Nitro
+        \end{itemize}
+        \item チャンネル~\cite{SafariChannels}
+        \begin{itemize}
+            \item Safari
+            \item Beta
+            \item Technology Preview
+        \end{itemize}
     \end{itemize}
-  \end{itemize}
-  \item Service Workerのパフォーマンス評価
-  \begin{itemize}
-    \item Lighthouseとネットワークスロットリングを用いることでService Workerのパフォーマンス評価ができることを示す
-    \item ネットワークスロットリングの種類や、パケットレベルのネットワークスロットリングを用いる利点を説明する
-  \end{itemize}
+    \item Microsoft Edge
+    \begin{itemize}
+        \item シェア: 約5\%
+        \item レンダリングエンジン
+        \begin{itemize}
+            \item HTML: Blink
+            \item JavaScript: V8
+        \end{itemize}
+        \item チャンネル~\cite{MicrosoftEdgeChannels}
+        \begin{itemize}
+            \item Stable
+            \item Extended Stable
+            \item Beta
+            \item Dev
+            \item Canary
+        \end{itemize}
+    \end{itemize}
+    \item Mozilla Firefox
+    \begin{itemize}
+        \item シェア: 約3\%
+        \item レンダリングエンジン
+        \begin{itemize}
+            \item HTML: Gecko
+            \item JavaScript: SpiderMonkey
+        \end{itemize}
+        \item チャンネル~\cite{MozillaFirefoxChannels}
+        \begin{itemize}
+            \item Firefox
+            \item Extended Support Release(ESR)
+            \item Beta
+            \item Developer Edition
+            \item Nightly
+        \end{itemize}
+    \end{itemize}
 \end{itemize}
