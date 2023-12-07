@@ -90,3 +90,10 @@ Web APIはPWAをプラットフォーム固有のアプリ(ネイティブアプ
         \end{itemize}
     \end{itemize}
 \end{itemize}
+次に、前述した情報を踏まえ、Webブラウザー間におけるWeb APIの対応状況の違いを考える上で、着目するべき点を挙げる。まずは、Google Chromeのシェアとその他のWebブラウザーのシェアの間に大きな差があることを確認できる。次に、Google ChromeとMicrosoft Edgeの特徴が似ていることを確認できる。Microsoft EdgeはGoogle Chromeと同様にChromiumというWebブラウザーから派生しているためである。Web APIの対応状況についてもほとんど同じである。そこで、Google ChromeとMicrosoft Edgeは同一のWebブラウザーであるとみなし、よりシェアが大きいGoogle Chromeを調査対象とする。
+
+続いて、HTMLのレンダリングエンジンの違いに注目する。まず、SafariはBlinkのフォーク元であるWebKitを利用している。そのため、SafariにはGoogle ChromeやMicrosoft Edgeと共通のコードベースが含まれる可能性がある。さらに、WebKitは独自のエコシステムを持っている。例えば、iOS上のWebブラウザーはWebKit以外のHTMLレンダリングエンジンを使用できない。これにより、iOS上のWebブラウザー間の機能の違いが少なくなり、iOSにデフォルトでインストールされているSafariの市場優位性が高まる。Mozilla Firefoxについては、シェアは少ないものの、WebKitから完全に独立したHTMLレンダリングエンジンであるGeckoを採用している。また、プライバシーを重視する傾向にあり、PWAに関連するWeb APIの策定に積極的であるGoogle Chromeとは対照的である。そのため、Google Chromeに加えてMozilla Firefoxも調査対象とする。
+
+次に、Web APIのWebブラウザー側の対応状況を調べる際に参照する文献の候補を示す。Can I use…~\cite{CanIUse}は様々なWebブラウザーがサポートする機能を検索できるWebサイトである。CC BY 4.0ライセンスを採用し、コミュニティーがWebサイトの情報を更新している。これに加えて、より信ぴょう性が高い情報を得るために、それぞれのWebブラウザーベンダーが提供しているRelease notesを参照する。これは、新しいバージョンのソフトウェアをリリースする際に公表される、以前のバージョンからの変更点を示す文書である。また、より詳細な情報を入手するために、必要に応じてWebブラウザーベンダーのブログ記事を参照する。
+\subsubsection{Web APIに対する意見や主張の調査}\label{subsubsection:Web APIに対する意見や主張の調査}
+それぞれのWeb APIに対する意見や主張は、Web APIの有用性を測るための1つの指標となり得る。Web APIに対する意見や主張を表明するための文書としてはStandards Positionsがある。これはは様々なWeb標準に対するWebブラウザーベンダーの立場をまとめたものである。
