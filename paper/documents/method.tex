@@ -1,11 +1,4 @@
 \section{研究内容}\label{section:研究内容}
-%\begin{itemize}
-%  \item Service Workerのパフォーマンス評価
-%  \begin{itemize}
-%    \item Lighthouseとネットワークスロットリングを用いることでService Workerのパフォーマンス評価ができることを示す
-%    \item ネットワークスロットリングの種類や、パケットレベルのネットワークスロットリングを用いる利点を説明する
-%  \end{itemize}
-%\end{itemize}
 観光案内アプリにPWAを導入することを想定して調査や分析を行う。まずはPWAと深い関わりがあるWeb APIの、PWAにおける有用性を調査する。続いてService Workerのパフォーマンスを評価する。
 \subsection{PWAにおけるWeb APIの有用性の調査}\label{subsection:PWAにおけるWeb APIの有用性の調査}
 Web APIはPWAをプラットフォーム固有のアプリ(ネイティブアプリ)に近づけるために不可欠な技術である。ネイティブアプリの機能の多くはSDK(Software Development Kit)により提供されている。SDKは、特定のフレームワークやプラットフォーム上にアプリケーションを構築するために使用する開発ツールのセットである。Webアプリ開発では、SDKの代わりにWeb APIを使用できる。API(Application Programming Interface)はプログラム同士が相互に通信するための方法である。SDKと同様に、開発者が複雑な機能をより簡単に作成できるようにするために提供されており、APIを使用することで複雑なコードが抽象化され、構文がより簡潔になる。Web APIはこのAPIの1つであり、HTTPなどのWebの技術を利用したものである。Web APIにはいくつかの種類があるが、この論文では特に、WebブラウザーのAPIのうち、W3Cなどにより標準化されたものを扱うことにする。以後この論文では、Webブラウザーの標準化されたAPIという意味でWeb APIという語句を使用する。
