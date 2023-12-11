@@ -1,15 +1,101 @@
 \section{評価}\label{section:評価}
-\begin{itemize}
-  \item Web APIの対応状況
-  \begin{itemize}
-    \item Web APIの対応状況の調査結果を提示する
-    \item ドラフト段階の一部のAPIに対してWebブラウザーベンダーが表明している立場を提示し、それに基づいた考察を述べる
-  \end{itemize}
-  \item Service Workerのパフォーマンス
-  \begin{itemize}
-    \item Service Workerを使用しなかった場合のパフォーマンスを述べる
-    \item Service Workerを使用して全てのコンテンツをキャッシュした場合のパフォーマンスを述べる
-    \item Service Workerを使用してSame-Originのコンテンツのみをキャッシュした場合のパフォーマンスを述べる
-    \item Service Workerを使用して画像のみをキャッシュした場合のパフォーマンスを述べる
-  \end{itemize}
-\end{itemize}
+%\begin{itemize}
+%  \item Web APIの対応状況
+%  \begin{itemize}
+%    \item Web APIの対応状況の調査結果を提示する
+%    \item ドラフト段階の一部のAPIに対してWebブラウザーベンダーが表明している立場を提示し、それに基づいた考察を述べる
+%  \end{itemize}
+%  \item Service Workerのパフォーマンス
+%  \begin{itemize}
+%    \item Service Workerを使用しなかった場合のパフォーマンスを述べる
+%    \item Service Workerを使用して全てのコンテンツをキャッシュした場合のパフォーマンスを述べる
+%    \item Service Workerを使用してSame-Originのコンテンツのみをキャッシュした場合のパフォーマンスを述べる
+%    \item Service Workerを使用して画像のみをキャッシュした場合のパフォーマンスを述べる
+%  \end{itemize}
+%\end{itemize}
+\subsection{PWAにおけるWeb APIの有用性}\label{subsection:PWAにおけるWeb APIの有用性}
+\subsubsection{メディアの制御}\label{subsubsection:メディアの制御}
+メディアの制御に関するWeb APIと、そのWeb APIのWebブラウザー側の対応状況を表~\ref{table:メディアの制御に関するWeb API}に示す。
+\begin{table}
+  \centering
+  \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    Media Capture and Streams API & 対応 & 対応 \\ \hline
+    MediaStream Recording API & 対応 & 対応 \\ \hline
+    Media Session API & 対応 & 対応 \\ \hline
+    Encrypted Media Extensions API & 対応 & 対応 \\ \hline
+    Media Stream Image Capture API & 対応 & 対応 \\ \hline
+    Media Capabilities API & 対応 & 対応 \\ \hline
+    Media Source Extensions API & 対応 & 対応 \\ \hline
+  \end{tabular}
+  \caption{メディアの制御に関するWeb API}\label{table:メディアの制御に関するWeb API}
+\end{table}
+Media Capture and Streams APIはカメラによるストリーミングを提供する。MediaStream Recording APIと組み合わせることで、音声や動画のストリーミングを収録できる。これらのAPIを活用すると、画面共有やビデオ通話といった機能を簡単に実装できる。Media Stream Image Capture APIと組み合わせることで写真を撮影することもできる。
+
+MozillaやWebKitはこれらのAPIに肯定的である。getUserMedia()によってカメラやマイクへの明示的なアクセス許可を求められるため、ユーザーが処理の流れを理解しやすい点や、再生ボタンをクリックするなどのアクションに関連付けられている点で挙動が明確である。
+\subsubsection{モジュールへのアクセス}\label{subsubsection:モジュールへのアクセス}
+モジュールへのアクセスに関するWeb APIと、そのWeb APIのWebブラウザー側の対応状況を表~\ref{table:モジュールへのアクセスに関するWeb API}に示す。
+\begin{table}
+  \centering
+  \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    Geolocaion API & 対応 & 対応 \\ \hline
+    Web Bluetooth API & 対応 & 非対応 \\ \hline
+    Screen Orientation API & 対応 & 非対応 \\ \hline
+    Vibration API & 対応 & 対応 \\ \hline
+  \end{tabular}
+  \caption{モジュールへのアクセスに関するWeb API}\label{table:モジュールへのアクセスに関するWeb API}
+\end{table}
+Geolocation APIはユーザーの位置情報を取得する。ユーザーの位置を地図上にプロットしたり、ユーザーの位置情報を用いて、パーソナライズされた情報を表示したい場合に便利である。プライバシー上の理由から明示的なアクセス許可やHTTPS通信が必要である。
+Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作する機能を提供する。しかし、WebアプリがBluetooth端末に接続する場合は、そのアプリがどのような意図でその端末に接続しようとしているのかが明確に定義できないため、潜在的な危険性が高いと指摘されている~\cite{MozillaWebBluetooth}。
+\subsubsection{バックグラウンド処理}\label{subsubsection:バックグラウンド処理}
+バックグラウンド処理に関するWeb APIとそのWeb APIのWebブラウザー側の対応状況を表~\ref{table:バックグラウンド処理に関するWeb API}に示す。
+\begin{table}
+  \centering
+  \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    Background Tasks API & 対応 & 対応 \\ \hline
+    Background Fetch API & 対応 & 非対応 \\ \hline
+    Background Synchronization API & 対応 & 非対応 \\ \hline
+    Web Workers API & 対応 & 対応 \\ \hline
+  \end{tabular}
+  \caption{バックグラウンド処理に関するWeb API}\label{table:バックグラウンド処理に関するWeb API}
+\end{table}
+Background Tasks APIはタスクをキューに入れて優先度が高いものから順番に実行する。キューに入れられたタスクはバックグラウンドで実行されるため、Web Workerを使用せずにシステムの遅延を削減できる長所がある。Background Fetch APIは大容量のファイルをバックグラウンドでフェッチする。オフラインでフェッチリクエストが実行された場合は、ユーザーが再びオンラインになるまでプロセスを一時停止させることもできる。Background Fetch APIが実行する処理は実質的にはバックグラウンドでのダウンロードやアップロードであり、それらの処理の後にスクリプトがバックグラウンドで実行される可能性がある。ユーザーの明示的な操作を必須にすることや、Background Fetch APIがSame-Originのコンテンツのみを扱えるように制限するべきであるという声もある。Background Synchronization APIは安定したネットワーク接続が確立されるまでタスクを延期する。このAPIを使用して延期されたタスクは、異なるネットワーク上で実行される可能性があるため、ユーザーが意図しない処理が行われることが懸念されている。
+
+\subsubsection{ファイルへのアクセス}\label{subsubsection:ファイルへのアクセス}
+ファイルへのアクセスに関するWeb APIとそのWeb APIのWebブラウザー側の対応状況を表~\ref{table:ファイルへのアクセスに関するWeb API}に示す。
+\begin{table}
+  \centering
+  \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    File API & 対応 & 対応 \\ \hline
+    File System Access API & 対応 & 対応 \\ \hline
+    File and Directory Entries API & 対応 & 対応 \\ \hline
+  \end{tabular}
+  \caption{ファイルへのアクセスに関するWeb API}\label{table:ファイルへのアクセスに関するWeb API}
+\end{table}
+
+
+
+\subsubsection{通知}\label{subsubsection:通知}
+通知に関するWeb APIとそのWeb APIのWebブラウザー側の対応状況を表~\ref{table:通知に関するWeb API}に示す。
+\begin{table}
+  \centering
+  \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    Push API & 対応 & 対応 \\ \hline
+    Notifications API & 対応 & 対応 \\ \hline
+    Badging API & 対応 & 非対応 \\ \hline
+  \end{tabular}
+  \caption{通知に関するWeb API}\label{table:通知に関するWeb API}
+\end{table}
+
+\subsection{Service Workerのパフォーマンス}\label{subsection:Service Workerのパフォーマンス}
+\subsubsection{観光案内アプリに求められる機能と検証用のアプリの構成}\label{subsubsection:観光案内アプリに求められる機能と検証用のアプリの構成}
+\subsubsection{Service Workerのパフォーマンス}\label{subsubsection:Service Workerのパフォーマンス}
