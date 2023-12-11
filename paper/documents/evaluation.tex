@@ -1,10 +1,4 @@
 \section{評価}\label{section:評価}
-%\begin{itemize}
-%  \item Web APIの対応状況
-%  \begin{itemize}
-%    \item Web APIの対応状況の調査結果を提示する
-%    \item ドラフト段階の一部のAPIに対してWebブラウザーベンダーが表明している立場を提示し、それに基づいた考察を述べる
-%  \end{itemize}
 %  \item Service Workerのパフォーマンス
 %  \begin{itemize}
 %    \item Service Workerを使用しなかった場合のパフォーマンスを述べる
@@ -75,12 +69,13 @@ Background Tasks APIはタスクをキューに入れて優先度が高いもの
     & Google Chrome & Mozilla Firefox \\ \hline
     File API & 対応 & 対応 \\ \hline
     File System Access API & 対応 & 対応 \\ \hline
+    File System API & 対応 & 対応 \\ \hline
     File and Directory Entries API & 対応 & 対応 \\ \hline
   \end{tabular}
   \caption{ファイルへのアクセスに関するWeb API}\label{table:ファイルへのアクセスに関するWeb API}
 \end{table}
 
-
+File APIは端末のファイルとそのコンテンツにアクセスする。File APIよりも汎用性が高いAPIとしてはFile System Access APIがある。File System Access APIは端末のファイルシステム上のファイルにアクセスしてファイルを読み込んだり、ファイルに書き込んだりできる。File System APIはWebブラウザーに仮想ドライブを作成し、そのストレージにファイルを保存するものであり、File System APIとFile System Access APIはそれぞれ異なるAPIである。File System Access APIは端末のすべてのディレクトリとファイルにアクセスする権限を持つため、悪用されるリスクがある。許可を求めるプロンプトの表示などによって、このAPIが行おうとしている操作をユーザーに分かりやすく提示することで安全性を確保できるという意見もある。
 
 \subsubsection{通知}\label{subsubsection:通知}
 通知に関するWeb APIとそのWeb APIのWebブラウザー側の対応状況を表~\ref{table:通知に関するWeb API}に示す。
@@ -95,6 +90,8 @@ Background Tasks APIはタスクをキューに入れて優先度が高いもの
   \end{tabular}
   \caption{通知に関するWeb API}\label{table:通知に関するWeb API}
 \end{table}
+
+Push APIはWebアプリがサーバーからプッシュ通知を受信する機能を提供する。Webアプリがフォアグラウンドで動作していなくても利用できるため、任意のイベントを通知してユーザーの関心を集められる。WebアプリからOSなどのシステムに対して通知を送るためにはNotifications APIを用いる。Badging APIを併用することで通知の数などの状態が変化したことをユーザーに通知できる。Notifications APIとBadging APIは、HTTPSでサーバーと通信しており、かつService WorkerなどのWebワーカーが動作しているWebアプリでのみ利用できる。
 
 \subsection{Service Workerのパフォーマンス}\label{subsection:Service Workerのパフォーマンス}
 \subsubsection{観光案内アプリに求められる機能と検証用のアプリの構成}\label{subsubsection:観光案内アプリに求められる機能と検証用のアプリの構成}
