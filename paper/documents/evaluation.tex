@@ -116,7 +116,7 @@ Push APIはWebアプリがサーバーからプッシュ通知を受信する機
 次に観光地図を検証用のアプリに実装する。まずはOpenStreetMapを使用して地図レイヤーを表示する、OpenStreetMap(OSM)はコミュニティーによってメンテナンスされている、オープンソースの世界地図および地理データベースである。Overpass APIを使用して、観光名所に分類されるOSMのノードをJSONデータとして取得する。このノードをOSMの世界地図にプロットすることで、観光名所の場所がプロットされた地図を作成できる。Google Mapsに代表されるように、アプリに地図を表示する場合は、ズーム倍率を変更したり、自由にスクロールしたりできるインタラクティブ性が必要である。これを満たすためにLeafletを使用する。観光名所のマーカーにカーソルを合わせたり、そのマーカーをクリックした際に表示される画像やテキストを取得するために、JSONPlaceholderを使用する。JSONPlaceholderは、画像やテキストのダミーデータをREST APIで提供する。通常の観光地図には、特定の地域の観光名所のみがプロットされている。そのため、検証用のアプリでは国内の観光名所を都道府県ごとに表示する。
 
 \subsubsection{Service Workerのパフォーマンス}\label{subsubsection:Service Workerのパフォーマンス}
-Lighthouseとネットワークスロットリングを使用して、それぞれの都道府県の観光地図を読み込んだ際のパフォーマンスを計測した。パフォーマンスを計測する際に使用したネットワークスロットリングのプロファイルを表~\ref{table:ネットワークスロットリングのプロファイル}に示す。キャッシュ戦略ごとのそれぞれの指標の測定値の平均を図%~\ref{}、~\ref{}、~\ref{}、~\ref{}に示す。
+Lighthouseとネットワークスロットリングを使用して、それぞれの都道府県の観光地図を読み込んだ際のパフォーマンスを計測した。パフォーマンスを計測する際に使用したネットワークスロットリングのプロファイルを表~\ref{table:ネットワークスロットリングのプロファイル}に示す。キャッシュ戦略ごとのそれぞれの指標の測定値の平均を図~\ref{figure:Service Workerを使用しなかった場合のパフォーマンス}、~\ref{figure:全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}、~\ref{figure:画像をキャッシュした場合のパフォーマンス}、–\ref{figure:Same-Originのネットワークレスポンスをキャッシュした場合のパフォーマンス}に示す。
 
 \begin{table}
   \centering
@@ -130,3 +130,26 @@ Lighthouseとネットワークスロットリングを使用して、それぞ�
   \caption{ネットワークスロットリングのプロファイル}\label{table:ネットワークスロットリングのプロファイル}
 \end{table}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/without_service_worker.png}
+  \caption{Service Workerを使用しなかった場合のパフォーマンス}\label{figure:Service Workerを使用しなかった場合のパフォーマンス}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/service_worker_cache_all.png}
+  \caption{全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}\label{figure:全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/service_worker_cache_same_origin.png}
+  \caption{画像をキャッシュした場合のパフォーマンス}\label{figure:画像をキャッシュした場合のパフォーマンス}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/service_worker_cache_same_origin.png}
+  \caption{Same-Originのネットワークレスポンスをキャッシュした場合のパフォーマンス}\label{figure:Same-Originのネットワークレスポンスをキャッシュした場合のパフォーマンス}
+\end{figure}
