@@ -1,16 +1,9 @@
 \section{評価}\label{section:評価}
-%  \item Service Workerのパフォーマンス
-%  \begin{itemize}
-%    \item Service Workerを使用しなかった場合のパフォーマンスを述べる
-%    \item Service Workerを使用して全てのコンテンツをキャッシュした場合のパフォーマンスを述べる
-%    \item Service Workerを使用してSame-Originのコンテンツのみをキャッシュした場合のパフォーマンスを述べる
-%    \item Service Workerを使用して画像のみをキャッシュした場合のパフォーマンスを述べる
-%  \end{itemize}
-%\end{itemize}
 \subsection{PWAにおけるWeb APIの有用性}\label{subsection:PWAにおけるWeb APIの有用性}
 \subsubsection{メディアの制御}\label{subsubsection:メディアの制御}
 メディアの制御に関するWeb APIと、そのWeb APIのWebブラウザー側の対応状況を表~\ref{table:メディアの制御に関するWeb API}に示す。
 \begin{table}
+  \caption{メディアの制御に関するWeb API}\label{table:メディアの制御に関するWeb API}
   \centering
   \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
     \hline
@@ -23,7 +16,6 @@
     Media Capabilities API & 対応 & 対応 \\ \hline
     Media Source Extensions API & 対応 & 対応 \\ \hline
   \end{tabular}
-  \caption{メディアの制御に関するWeb API}\label{table:メディアの制御に関するWeb API}
 \end{table}
 Media Capture and Streams APIはカメラによるストリーミングを提供する。MediaStream Recording APIと組み合わせることで、音声や動画のストリーミングを収録できる。これらのAPIを活用すると、画面共有やビデオ通話といった機能を簡単に実装できる。Media Stream Image Capture APIと組み合わせることで写真を撮影することもできる。
 
@@ -31,6 +23,7 @@ MozillaやWebKitはこれらのAPIに肯定的である。getUserMedia()によ�
 \subsubsection{モジュールへのアクセス}\label{subsubsection:モジュールへのアクセス}
 モジュールへのアクセスに関するWeb APIと、そのWeb APIのWebブラウザー側の対応状況を表~\ref{table:モジュールへのアクセスに関するWeb API}に示す。
 \begin{table}
+  \caption{モジュールへのアクセスに関するWeb API}\label{table:モジュールへのアクセスに関するWeb API}
   \centering
   \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
     \hline
@@ -40,13 +33,14 @@ MozillaやWebKitはこれらのAPIに肯定的である。getUserMedia()によ�
     Screen Orientation API & 対応 & 非対応 \\ \hline
     Vibration API & 対応 & 対応 \\ \hline
   \end{tabular}
-  \caption{モジュールへのアクセスに関するWeb API}\label{table:モジュールへのアクセスに関するWeb API}
+
 \end{table}
 Geolocation APIはユーザーの位置情報を取得する。ユーザーの位置を地図上にプロットしたり、ユーザーの位置情報を用いて、パーソナライズされた情報を表示したい場合に便利である。プライバシー上の理由から明示的なアクセス許可やHTTPS通信が必要である。
 Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作する機能を提供する。しかし、WebアプリがBluetooth端末に接続する場合は、そのアプリがどのような意図でその端末に接続しようとしているのかが明確に定義できないため、潜在的な危険性が高いと指摘されている~\cite{MozillaWebBluetooth}。
 \subsubsection{バックグラウンド処理}\label{subsubsection:バックグラウンド処理}
 バックグラウンド処理に関するWeb APIとそのWeb APIのWebブラウザー側の対応状況を表~\ref{table:バックグラウンド処理に関するWeb API}に示す。
 \begin{table}
+  \caption{バックグラウンド処理に関するWeb API}\label{table:バックグラウンド処理に関するWeb API}
   \centering
   \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
     \hline
@@ -56,13 +50,14 @@ Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作す�
     Background Synchronization API & 対応 & 非対応 \\ \hline
     Web Workers API & 対応 & 対応 \\ \hline
   \end{tabular}
-  \caption{バックグラウンド処理に関するWeb API}\label{table:バックグラウンド処理に関するWeb API}
+
 \end{table}
 Background Tasks APIはタスクをキューに入れて優先度が高いものから順番に実行する。キューに入れられたタスクはバックグラウンドで実行されるため、Web Workerを使用せずにシステムの遅延を削減できる長所がある。Background Fetch APIは大容量のファイルをバックグラウンドでフェッチする。オフラインでフェッチリクエストが実行された場合は、ユーザーが再びオンラインになるまでプロセスを一時停止させることもできる。Background Fetch APIが実行する処理は実質的にはバックグラウンドでのダウンロードやアップロードであり、それらの処理の後にスクリプトがバックグラウンドで実行される可能性がある。ユーザーの明示的な操作を必須にすることや、Background Fetch APIがSame-Originのコンテンツのみを扱えるように制限するべきであるという声もある。Background Synchronization APIは安定したネットワーク接続が確立されるまでタスクを延期する。このAPIを使用して延期されたタスクは、異なるネットワーク上で実行される可能性があるため、ユーザーが意図しない処理が行われることが懸念されている。
 
 \subsubsection{ファイルへのアクセス}\label{subsubsection:ファイルへのアクセス}
 ファイルへのアクセスに関するWeb APIとそのWeb APIのWebブラウザー側の対応状況を表~\ref{table:ファイルへのアクセスに関するWeb API}に示す。
 \begin{table}
+  \caption{ファイルへのアクセスに関するWeb API}\label{table:ファイルへのアクセスに関するWeb API}
   \centering
   \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
     \hline
@@ -72,7 +67,6 @@ Background Tasks APIはタスクをキューに入れて優先度が高いもの
     File System API & 対応 & 対応 \\ \hline
     File and Directory Entries API & 対応 & 対応 \\ \hline
   \end{tabular}
-  \caption{ファイルへのアクセスに関するWeb API}\label{table:ファイルへのアクセスに関するWeb API}
 \end{table}
 
 File APIは端末のファイルとそのコンテンツにアクセスする。File APIよりも汎用性が高いAPIとしてはFile System Access APIがある。File System Access APIは端末のファイルシステム上のファイルにアクセスしてファイルを読み込んだり、ファイルに書き込んだりできる。File System APIはWebブラウザーに仮想ドライブを作成し、そのストレージにファイルを保存するものであり、File System APIとFile System Access APIはそれぞれ異なるAPIである。File System Access APIは端末のすべてのディレクトリとファイルにアクセスする権限を持つため、悪用されるリスクがある。許可を求めるプロンプトの表示などによって、このAPIが行おうとしている操作をユーザーに分かりやすく提示することで安全性を確保できるという意見もある。
@@ -80,6 +74,7 @@ File APIは端末のファイルとそのコンテンツにアクセスする。
 \subsubsection{通知}\label{subsubsection:通知}
 通知に関するWeb APIとそのWeb APIのWebブラウザー側の対応状況を表~\ref{table:通知に関するWeb API}に示す。
 \begin{table}
+  \caption{通知に関するWeb API}\label{table:通知に関するWeb API}
   \centering
   \begin{tabular}{|p{20em}|p{10em}|p{10em}|}
     \hline
@@ -88,7 +83,6 @@ File APIは端末のファイルとそのコンテンツにアクセスする。
     Notifications API & 対応 & 対応 \\ \hline
     Badging API & 対応 & 非対応 \\ \hline
   \end{tabular}
-  \caption{通知に関するWeb API}\label{table:通知に関するWeb API}
 \end{table}
 
 Push APIはWebアプリがサーバーからプッシュ通知を受信する機能を提供する。Webアプリがフォアグラウンドで動作していなくても利用できるため、任意のイベントを通知してユーザーの関心を集められる。WebアプリからOSなどのシステムに対して通知を送るためにはNotifications APIを用いる。Badging APIを併用することで通知の数などの状態が変化したことをユーザーに通知できる。Notifications APIとBadging APIは、HTTPSでサーバーと通信しており、かつService WorkerなどのWebワーカーが動作しているWebアプリでのみ利用できる。
@@ -97,6 +91,7 @@ Push APIはWebアプリがサーバーからプッシュ通知を受信する機
 \subsubsection{観光案内アプリの機能と検証用のアプリの構成}\label{subsubsection:観光案内アプリに求められる機能と検証用のアプリの構成}
 検証用のアプリを作成するために、既存の観光案内アプリの機能を調査した。それぞれの機能とその機能が実装されているモバイルネイティブアプリの割合を降順で表~\ref{table:既存の観光案内アプリの機能とその機能が実装されている割合}に示す。パーセンテージは小数第1位を四捨五入している。
 \begin{table}
+  \caption{既存の観光案内アプリの機能とその機能が実装されている割合}\label{table:既存の観光案内アプリの機能とその機能が実装されている割合}
   \centering
   \begin{tabular}{|p{15em}|p{10em}|}
     \hline
@@ -107,7 +102,7 @@ Push APIはWebアプリがサーバーからプッシュ通知を受信する機
     観光名所のブックマーク & 26\\ \hline
     Wi-Fiアクセスポイントの検索 & 11 \\ \hline
   \end{tabular}
-  \caption{既存の観光案内アプリの機能とその機能が実装されている割合}\label{table:既存の観光案内アプリの機能とその機能が実装されている割合}
+
 \end{table}
 観光地図は、地図レイヤーの上に観光名所などの地点をプロットして表示したものである。プロットされた地点にカーソルを合わせたり、その地点をクリックしたりすると、その地点を説明する画像やテキストが表示される。スタンプラリーは、観光名所などを訪ね、その場所に設置されているビーコンと通信したり、QRコードを読み取ったりすることでスタンプを獲得できる機能である。観光地に設置されているWi-Fiスポットに接続したいユーザー向けに、Wi-Fiアクセスポイントの検索機能を提供しているものもある。
 
@@ -119,6 +114,7 @@ Push APIはWebアプリがサーバーからプッシュ通知を受信する機
 Lighthouseとネットワークスロットリングを使用して、それぞれの都道府県の観光地図を読み込んだ際のパフォーマンスを計測した。パフォーマンスを計測する際に使用したネットワークスロットリングのプロファイルを表~\ref{table:ネットワークスロットリングのプロファイル}に示す。キャッシュ戦略ごとのそれぞれの指標の測定値の平均を図~\ref{figure:Service Workerを使用しなかった場合のパフォーマンス}、~\ref{figure:全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}、~\ref{figure:画像をキャッシュした場合のパフォーマンス}、–\ref{figure:Same-Originのネットワークレスポンスをキャッシュした場合のパフォーマンス}に示す。
 
 \begin{table}
+  \caption{ネットワークスロットリングのプロファイル}\label{table:ネットワークスロットリングのプロファイル}
   \centering
   \begin{tabular}{|p{5em}|p{10em}|p{10em}|p{10em}|}
     \hline
@@ -127,7 +123,6 @@ Lighthouseとネットワークスロットリングを使用して、それぞ�
     3gfast & 768 & 1600 & 75 \\ \hline
     4g & 9000 & 9000 & 85 \\ \hline
   \end{tabular}
-  \caption{ネットワークスロットリングのプロファイル}\label{table:ネットワークスロットリングのプロファイル}
 \end{table}
 
 \begin{figure}
