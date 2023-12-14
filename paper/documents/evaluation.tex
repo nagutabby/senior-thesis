@@ -1,5 +1,5 @@
 \section{評価}\label{section:評価}
-\subsection{PWAにおけるWeb APIの有用性}\label{subsection:PWAにおけるWeb APIの有用性}
+\subsection{Web APIの有用性}\label{subsection:PWAにおけるWeb APIの有用性}
 \subsubsection{メディアの制御}\label{subsubsection:メディアの制御}
 メディアの制御に関するWeb APIと、そのWeb APIのWebブラウザー側の対応状況を表~\ref{table:メディアの制御に関するWeb API}に示す。
 \begin{table}
@@ -33,7 +33,6 @@ MozillaやWebKitはこれらのAPIに肯定的である。getUserMedia()によ�
     Screen Orientation API & 対応 & 非対応 \\ \hline
     Vibration API & 対応 & 対応 \\ \hline
   \end{tabular}
-
 \end{table}
 Geolocation APIはユーザーの位置情報を取得する。ユーザーの位置を地図上にプロットしたり、ユーザーの位置情報を用いて、パーソナライズされた情報を表示したい場合に便利である。プライバシー上の理由から明示的なアクセス許可やHTTPS通信が必要である。
 Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作する機能を提供する。しかし、WebアプリがBluetooth端末に接続する場合は、そのアプリがどのような意図でその端末に接続しようとしているのかが明確に定義できないため、潜在的な危険性が高いと指摘されている~\cite{MozillaWebBluetooth}。
@@ -50,10 +49,8 @@ Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作す�
     Background Synchronization API & 対応 & 非対応 \\ \hline
     Web Workers API & 対応 & 対応 \\ \hline
   \end{tabular}
-
 \end{table}
 Background Tasks APIはタスクをキューに入れて優先度が高いものから順番に実行する。キューに入れられたタスクはバックグラウンドで実行されるため、Web Workerを使用せずにシステムの遅延を削減できる長所がある。Background Fetch APIは大容量のファイルをバックグラウンドでフェッチする。オフラインでフェッチリクエストが実行された場合は、ユーザーが再びオンラインになるまでプロセスを一時停止させることもできる。Background Fetch APIが実行する処理は実質的にはバックグラウンドでのダウンロードやアップロードであり、それらの処理の後にスクリプトがバックグラウンドで実行される可能性がある。ユーザーの明示的な操作を必須にすることや、Background Fetch APIがSame-Originのコンテンツのみを扱えるように制限するべきであるという声もある。Background Synchronization APIは安定したネットワーク接続が確立されるまでタスクを延期する。このAPIを使用して延期されたタスクは、異なるネットワーク上で実行される可能性があるため、ユーザーが意図しない処理が行われることが懸念されている。
-
 \subsubsection{ファイルへのアクセス}\label{subsubsection:ファイルへのアクセス}
 ファイルへのアクセスに関するWeb APIとそのWeb APIのWebブラウザー側の対応状況を表~\ref{table:ファイルへのアクセスに関するWeb API}に示す。
 \begin{table}
@@ -68,9 +65,7 @@ Background Tasks APIはタスクをキューに入れて優先度が高いもの
     File and Directory Entries API & 対応 & 対応 \\ \hline
   \end{tabular}
 \end{table}
-
 File APIは端末のファイルとそのコンテンツにアクセスする。File APIよりも汎用性が高いAPIとしてはFile System Access APIがある。File System Access APIは端末のファイルシステム上のファイルにアクセスしてファイルを読み込んだり、ファイルに書き込んだりできる。File System APIはWebブラウザーに仮想ドライブを作成し、そのストレージにファイルを保存するものであり、File System APIとFile System Access APIはそれぞれ異なるAPIである。File System Access APIは端末のすべてのディレクトリとファイルにアクセスする権限を持つため、悪用されるリスクがある。許可を求めるプロンプトの表示などによって、このAPIが行おうとしている操作をユーザーに分かりやすく提示することで安全性を確保できるという意見もある。
-
 \subsubsection{通知}\label{subsubsection:通知}
 通知に関するWeb APIとそのWeb APIのWebブラウザー側の対応状況を表~\ref{table:通知に関するWeb API}に示す。
 \begin{table}
@@ -84,33 +79,8 @@ File APIは端末のファイルとそのコンテンツにアクセスする。
     Badging API & 対応 & 非対応 \\ \hline
   \end{tabular}
 \end{table}
-
 Push APIはWebアプリがサーバーからプッシュ通知を受信する機能を提供する。Webアプリがフォアグラウンドで動作していなくても利用できるため、任意のイベントを通知してユーザーの関心を集められる。WebアプリからOSなどのシステムに対して通知を送るためにはNotifications APIを用いる。Badging APIを併用することで通知の数などの状態が変化したことをユーザーに通知できる。Notifications APIとBadging APIは、HTTPSでサーバーと通信しており、かつService WorkerなどのWebワーカーが動作しているWebアプリでのみ利用できる。
-
-\subsection{Service Workerのパフォーマンス}\label{subsection:Service Workerのパフォーマンス}
-\subsubsection{観光案内アプリの機能と検証用のアプリの構成}\label{subsubsection:観光案内アプリに求められる機能と検証用のアプリの構成}
-検証用のアプリを作成するために、既存の観光案内アプリの機能を調査した。それぞれの機能とその機能が実装されているモバイルネイティブアプリの割合を降順で表~\ref{table:既存の観光案内アプリの機能とその機能が実装されている割合}に示す。パーセンテージは小数第1位を四捨五入している。
-\begin{table}
-  \caption{既存の観光案内アプリの機能とその機能が実装されている割合}\label{table:既存の観光案内アプリの機能とその機能が実装されている割合}
-  \centering
-  \begin{tabular}{|p{15em}|p{10em}|}
-    \hline
-    & 割合[\%] \\ \hline
-    観光地図 & 74 \\ \hline
-    スタンプラリー & 41\\ \hline
-    観光ルート案内 & 33\\ \hline
-    観光名所のブックマーク & 26\\ \hline
-    Wi-Fiアクセスポイントの検索 & 11 \\ \hline
-  \end{tabular}
-
-\end{table}
-観光地図は、地図レイヤーの上に観光名所などの地点をプロットして表示したものである。プロットされた地点にカーソルを合わせたり、その地点をクリックしたりすると、その地点を説明する画像やテキストが表示される。スタンプラリーは、観光名所などを訪ね、その場所に設置されているビーコンと通信したり、QRコードを読み取ったりすることでスタンプを獲得できる機能である。観光地に設置されているWi-Fiスポットに接続したいユーザー向けに、Wi-Fiアクセスポイントの検索機能を提供しているものもある。
-
-中でも、観光地図を利用する際は観光名所や地図レイヤーの画像が配信されるため、データの通信量が大きくなる。このような場合はService Workerによるキャッシュの恩恵を受けられる。また、実装されている割合が最も大きいため、この機能は多くの観光案内アプリが持つ特徴の1つであると考えられる。観光地図を実装したWebアプリを作成してそのパフォーマンスを計測することで、観光案内アプリにおけるService Workerのパフォーマンスを評価する。
-
-次に観光地図を検証用のアプリに実装する。まずはOpenStreetMapを使用して地図レイヤーを表示する、OpenStreetMap(OSM)はコミュニティーによってメンテナンスされている、オープンソースの世界地図および地理データベースである。Overpass APIを使用して、観光名所に分類されるOSMのノードをJSONデータとして取得する。このノードをOSMの世界地図にプロットすることで、観光名所の場所がプロットされた地図を作成できる。Google Mapsに代表されるように、アプリに地図を表示する場合は、ズーム倍率を変更したり、自由にスクロールしたりできるインタラクティブ性が必要である。これを満たすためにLeafletを使用する。観光名所のマーカーにカーソルを合わせたり、そのマーカーをクリックした際に表示される画像やテキストを取得するために、JSONPlaceholderを使用する。JSONPlaceholderは、画像やテキストのダミーデータをREST APIで提供する。通常の観光地図には、特定の地域の観光名所のみがプロットされている。そのため、検証用のアプリでは国内の観光名所を都道府県ごとに表示する。
-
-\subsubsection{Service Workerのパフォーマンス}\label{subsubsection:Service Workerのパフォーマンス}
+\subsection{Service Workerのパフォーマンス}\label{subsubsection:Service Workerのパフォーマンス}
 Lighthouseとネットワークスロットリングを使用して、それぞれの都道府県の観光地図を読み込んだ際のパフォーマンスを計測した。パフォーマンスを計測する際に使用したネットワークスロットリングのプロファイルを表~\ref{table:ネットワークスロットリングのプロファイル}に示す。キャッシュ戦略ごとのそれぞれの指標の測定値の平均を図~\ref{figure:Service Workerを使用しなかった場合のパフォーマンス}、~\ref{figure:全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}、~\ref{figure:画像をキャッシュした場合のパフォーマンス}、~\ref{figure:Same-Originのネットワークレスポンスをキャッシュした場合のパフォーマンス}に示す。
 
 \begin{table}
