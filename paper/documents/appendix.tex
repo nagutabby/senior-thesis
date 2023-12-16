@@ -95,3 +95,12 @@ for (const prefecture of prefectures) {
 
 chrome.kill();
 \end{lstlisting}
+このプログラムの実行環境は以下の通りである。
+\begin{itemize}
+    \item ネットワークスロットリング: @sitespeed.io/throttle 5.0.0
+    \item パフォーマンスの計測: lighthouse 11.3.0
+    \item Node.js経由でのGoogle Chromeの起動: chrome-launcher 1.1.0
+    \item TypeScriptのサポート: typescript 5.3.2
+    \item TypeScriptのトランスパイラー: tsx 4.5.0
+    \item Node.jsの型定義の提供: @types/node 20.10.0
+\end{itemize}
