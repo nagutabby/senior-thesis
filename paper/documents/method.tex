@@ -1,8 +1,10 @@
-\section{研究内容}\label{section:研究内容}
+\section{研究内容}
+\label{section:研究内容}
 観光案内アプリにPWAを導入することを想定して調査や分析を行う。まずはPWAと深い関わりがあるWeb APIの、PWAにおける有用性を調査する。続いてService Workerのパフォーマンスを評価する。
 \subsection{PWAにおけるWeb APIの有用性の調査}\label{subsection:PWAにおけるWeb APIの有用性の調査}
 Web APIはPWAをプラットフォーム固有のアプリ(ネイティブアプリ)に近づけるために不可欠な技術である。ネイティブアプリの機能の多くはSDK(Software Development Kit)により提供されている。SDKは、特定のフレームワークやプラットフォーム上にアプリケーションを構築するために使用する開発ツールのセットである。Webアプリ開発では、SDKの代わりにWeb APIを使用できる。API(Application Programming Interface)はプログラム同士が相互に通信するための方法である。SDKと同様に、開発者が複雑な機能をより簡単に作成できるようにするために提供されており、APIを使用することで複雑なコードが抽象化され、構文がより簡潔になる。Web APIはこのAPIの1つであり、HTTPなどのWebの技術を利用したものである。Web APIにはいくつかの種類があるが、この論文では特に、WebブラウザーのAPIのうち、W3Cなどにより標準化されたものを扱うことにする。以後この論文では、Webブラウザーの標準化されたAPIという意味でWeb APIという語句を使用する。
-\subsubsection{Web APIのWebブラウザー側の対応状況の調査}\label{subsubsection:Web APIのWebブラウザー側の対応状況の調査}
+\subsubsection{Web APIのWebブラウザー側の対応状況の調査}
+\label{subsubsection:Web APIのWebブラウザー側の対応状況の調査}
 開発者が実際に特定のWeb APIを利用するためには、WebブラウザーがそのWeb APIに対応している必要がある。特に、シェアが大きいWebブラウザーの対応状況や、レンダリングエンジンが異なるWebブラウザー間の対応状況を把握することは、Webアプリのコンバージョンを高めたり、自由なWebを維持したりする上で重要である。主要なWebブラウザーのシェアや特徴は以下の通りである。なお、シェアはすべてのプラットフォームの2023年9月時点のデータを基に算出している~\cite{StatCounterBrowserMarketShare}。
 \begin{itemize}
     \item Google Chrome
@@ -77,11 +79,14 @@ Web APIはPWAをプラットフォーム固有のアプリ(ネイティブアプ
 続いて、HTMLのレンダリングエンジンの違いに注目する。まず、SafariはBlinkのフォーク元であるWebKitを利用している。そのため、SafariにはGoogle ChromeやMicrosoft Edgeと共通のコードベースが含まれる可能性がある。さらに、WebKitは独自のエコシステムを持っている。例えば、iOS上のWebブラウザーはWebKit以外のHTMLレンダリングエンジンを使用できない。これにより、iOS上のWebブラウザー間の機能の違いが少なくなり、iOSにデフォルトでインストールされているSafariの市場優位性が高まる。Mozilla Firefoxについては、シェアは少ないものの、WebKitから完全に独立したHTMLレンダリングエンジンであるGeckoを採用している。また、プライバシーを重視する傾向にあり、PWAに関連するWeb APIの策定に積極的であるGoogle Chromeとは対照的である。そのため、Google Chromeに加えてMozilla Firefoxも調査対象とする。
 
 次に、Web APIのWebブラウザー側の対応状況を調べる際に参照する文献の候補を示す。Can I use…~\cite{CanIUse}は様々なWebブラウザーがサポートする機能を検索できるWebサイトである。CC BY 4.0ライセンスを採用し、コミュニティーがWebサイトの情報を更新している。これに加えて、より信ぴょう性が高い情報を得るために、それぞれのWebブラウザーベンダーが提供しているRelease notesを参照する。これは、新しいバージョンのソフトウェアをリリースする際に公表される、以前のバージョンからの変更点を示す文書である。また、より詳細な情報を入手するために、必要に応じてWebブラウザーベンダーのブログ記事を参照する。
-\subsubsection{Web APIに対する意見や主張の調査}\label{subsubsection:Web APIに対する意見や主張の調査}
+\subsubsection{Web APIに対する意見や主張の調査}
+\label{subsubsection:Web APIに対する意見や主張の調査}
 それぞれのWeb APIに対する意見や主張は、Web APIの有用性を測るための1つの指標となり得る。Web APIに対する意見や主張を表明するための文書としてはStandards Positionsがある。これは、Web標準の技術に対する開発コミュニティーの立場をまとめたものである。主な立場としては賛成(support、positive)、中立(neutral)、反対(oppose、negative)がある。GitHubなどのプラットフォーム上で、特定のWeb標準の技術に対する賛否の議論が行われ、その後に開発コミュニティーの代表者が立場を表明する。まずは、Standards Positionsでの立場やその根拠となる議論を調査し、Web APIの現在の有用性を評価する。さらに、Web APIに対する議論の方向性を基にWeb APIの将来の見通しを考察する。
-\subsection{Service Workerのパフォーマンスの評価}\label{subsection:Service Workerのパフォーマンスの評価}
+\subsection{Service Workerのパフォーマンスの評価}
+\label{subsection:Service Workerのパフォーマンスの評価}
 観光案内アプリでのService Workerのパフォーマンスを評価するためには、観光案内アプリに求められる機能を調査し、検証用のアプリを作成し、Service Workerのキャッシュパターンを考え、パフォーマンスを計測することが必要である。
-\subsubsection{観光案内アプリに求められる機能の調査}\label{subsubsection:観光案内アプリに求められる機能の調査}
+\subsubsection{観光案内アプリに求められる機能の調査}
+\label{subsubsection:観光案内アプリに求められる機能の調査}
 人々が観光案内アプリと聞いて思い浮かべるものは様々である。そこで、観光案内アプリに求められる機能を調査する。初めにGoogle検索エンジンを使用して都道府県名、「観光」、「アプリ」というキーワードで検索する。次に、最上位の検索結果から順に閲覧していき、観光案内アプリを見つける。そのアプリが配信中であれば、PCやスマートフォンで実際にそのアプリを使用してアプリに実装されている機能を調査する。
 
 初めに、検証用のアプリを作成するために現在配信されている観光案内アプリのうち、モバイルネイティブアプリで実装されている機能を調査した。それぞれの機能とその機能が実装されている割合を降順で表~\ref{table:観光案内アプリに実装されている機能}に示す。パーセンテージは小数第1位を四捨五入している。
@@ -102,7 +107,8 @@ Web APIはPWAをプラットフォーム固有のアプリ(ネイティブアプ
 次に、同様のアプリで使用されているアクセス権限を調査した。それぞれのアクセス権限とそのアクセス権限が使用されている割合を降順で表~\ref{table:観光案内アプリが使用するアクセス権限}に示す。パーセンテージは小数第1位を四捨五入している。
 
 \begin{table}
-  \caption{観光案内アプリが使用するアクセス権限}\label{table:観光案内アプリが使用するアクセス権限}
+  \caption{観光案内アプリが使用するアクセス権限}
+  \label{table:観光案内アプリが使用するアクセス権限}
   \centering
   \begin{tabular}{|p{15em}|p{10em}|}
     \hline
