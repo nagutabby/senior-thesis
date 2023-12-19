@@ -3,17 +3,26 @@
 \subsection{Service Workerのパフォーマンス}
 \label{subsubsection:Service Workerのパフォーマンス}
 Lighthouseとネットワークスロットリングを使用して、それぞれの都道府県の観光地図を読み込んだ際のパフォーマンスを計測した。キャッシュ戦略ごとのパフォーマンス指標の値の平均を図~\ref{figure:Service Workerを使用しなかった場合のパフォーマンス}、~\ref{figure:全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}、~\ref{figure:画像をキャッシュした場合のパフォーマンス}、~\ref{figure:Same-Originのネットワークレスポンスをキャッシュした場合のパフォーマンス}に示す。
-
 \begin{figure}
   \centering
   \includegraphics[width=0.9\textwidth]{images/without_service_worker.png}
   \caption{Service Workerを使用しなかった場合のパフォーマンス}\label{figure:Service Workerを使用しなかった場合のパフォーマンス}
 \end{figure}
-\begin{figure}
+\begin{table}
+  \caption{全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}
+  \label{table:全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}
   \centering
-  \includegraphics[width=0.9\textwidth]{images/service_worker_cache_all.png}
-  \caption{全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}\label{figure:全てのネットワークレスポンスをキャッシュした場合のパフォーマンス}
-\end{figure}
+  \begin{tabular}{|p{15em}|p{5em}|p{5em}|p{5em}|}
+    \hline
+    & 3gslow & 3gfast & 4g \\ \hline
+    パフォーマンス & 1 & 1 & 1 \\ \hline
+    First Contentful Paint & 1 & 1 & 1 \\ \hline
+    Largest Contentful Paint & 1 & 1 & 1 \\ \hline
+    Speed Index & 1 & 1 & 1 \\ \hline
+    Total Blocking Time & 1 & 1 & 1 \\ \hline
+    Cumulative Layout Shift & 1 & 1 & 1 \\ \hline
+  \end{tabular}
+\end{table}
 \begin{figure}
   \centering
   \includegraphics[width=0.9\textwidth]{images/service_worker_cache_images.png}
