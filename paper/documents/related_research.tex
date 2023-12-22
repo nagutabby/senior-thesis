@@ -63,3 +63,224 @@ Redditから画像とテキストを取得して表示する機能を、PWAとAn
 \subsubsection{クロスプラットフォーム開発における役割に関する研究の課題}
 \label{subsubsection:クロスプラットフォーム開発における役割に関する研究の課題}
 プラットフォームごとにPWAのサポート状況が異なるため、PWAのWebブラウザー間の互換性を保つことが難しい。PWAの活用状況によってはPollyfillの導入が必要になる場合があり、それによってJavaScriptのサイズが大きくなり、クロスプラットフォーム開発の優位性が損なわれるかもしれない。
+\subsection{PWAで活用できるWeb APIの調査}\label{subsection:PWAで活用できるWeb APIの調査}
+ネイティブアプリの機能の多くはSDK(Software Development Kit)により提供されている。これは特定のフレームワークやプラットフォーム上にアプリケーションを構築するために使用する開発ツールのセットである。Webアプリ開発では、SDKの代わりにWeb APIを使用できる。API(Application Programming Interface)はプログラム同士が相互に通信するための方法である。SDKと同様に、開発者が複雑な機能をより簡単に作成できるようにするために提供されており、APIを使用することで複雑なコードが抽象化され、構文がより簡潔になる。Web APIはこのAPIの1つであり、HTTPなどのWebの技術を利用したものである。このように、Web APIはPWAをプラットフォーム固有のアプリ(ネイティブアプリ)に近づけるために不可欠な技術であるため、PWAで活用できるWeb APIを調査する。Web APIにはいくつかの種類があるが、この論文では特に、WebブラウザーのAPIのうち、W3Cなどにより標準化されたものを扱うことにする。以後この論文では、Webブラウザーの標準化されたAPIという意味でWeb APIという語句を使用する。
+\subsubsection{Web APIのWebブラウザー側の対応状況の調査}
+\label{subsubsection:Web APIのWebブラウザー側の対応状況の調査}
+開発者が実際に特定のWeb APIを利用するためには、WebブラウザーがそのWeb APIに対応している必要がある。特に、シェアが大きいWebブラウザーの対応状況や、レンダリングエンジンが異なるWebブラウザー間の対応状況を把握することは、Webアプリのコンバージョンを高めたり、自由なWebを維持したりする上で重要である。主要なWebブラウザーのシェアや特徴は以下の通りである。なお、シェアはすべてのプラットフォームの2023年9月時点のデータを基に算出している~\cite{StatCounterBrowserMarketShare}。
+\begin{itemize}
+    \item Google Chrome
+    \begin{itemize}
+        \item シェア: 約63\%
+        \item レンダリングエンジン
+        \begin{itemize}
+            \item HTML: Blink
+            \item JavaScript: V8
+        \end{itemize}
+        \item チャンネル~\cite{GoogleChromeChannels}
+        \begin{itemize}
+            \item Stable
+            \item Extended Stable
+            \item Beta
+            \item Dev
+            \item Canary
+        \end{itemize}
+    \end{itemize}
+    \item Safari
+    \begin{itemize}
+        \item シェア: 約20\%
+        \item レンダリングエンジン
+        \begin{itemize}
+            \item HTML: WebKit
+            \item JavaScript: Nitro
+        \end{itemize}
+        \item チャンネル~\cite{SafariChannels}
+        \begin{itemize}
+            \item Safari
+            \item Beta
+            \item Technology Preview
+        \end{itemize}
+    \end{itemize}
+    \item Microsoft Edge
+    \begin{itemize}
+        \item シェア: 約5\%
+        \item レンダリングエンジン
+        \begin{itemize}
+            \item HTML: Blink
+            \item JavaScript: V8
+        \end{itemize}
+        \item チャンネル~\cite{MicrosoftEdgeChannels}
+        \begin{itemize}
+            \item Stable
+            \item Extended Stable
+            \item Beta
+            \item Dev
+            \item Canary
+        \end{itemize}
+    \end{itemize}
+    \item Mozilla Firefox
+    \begin{itemize}
+        \item シェア: 約3\%
+        \item レンダリングエンジン
+        \begin{itemize}
+            \item HTML: Gecko
+            \item JavaScript: SpiderMonkey
+        \end{itemize}
+        \item チャンネル~\cite{MozillaFirefoxChannels}
+        \begin{itemize}
+            \item Firefox
+            \item Extended Support Release(ESR)
+            \item Beta
+            \item Developer Edition
+            \item Nightly
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+次に、前述した情報を踏まえ、Webブラウザー間におけるWeb APIの対応状況の違いを考える上で、着目するべき点を挙げる。まずは、Google Chromeのシェアとその他のWebブラウザーのシェアの間に大きな差があることを確認できる。次に、Google ChromeとMicrosoft Edgeの特徴が似ていることを確認できる。Microsoft EdgeはGoogle Chromeと同様にChromiumというWebブラウザーから派生しているためである。Web APIの対応状況についてもほとんど同じである。そこで、Google ChromeとMicrosoft Edgeは同一のWebブラウザーであるとみなし、よりシェアが大きいGoogle Chromeを調査対象とする。
+
+続いて、HTMLのレンダリングエンジンの違いに注目する。まず、SafariはBlinkのフォーク元であるWebKitを利用している。そのため、SafariにはGoogle ChromeやMicrosoft Edgeと共通のコードベースが含まれる可能性がある。さらに、WebKitは独自のエコシステムを持っている。例えば、iOS上のWebブラウザーはWebKit以外のHTMLレンダリングエンジンを使用できない。これにより、iOS上のWebブラウザー間の機能の違いが少なくなり、iOSにデフォルトでインストールされているSafariの市場優位性が高まる。Mozilla Firefoxについては、シェアは少ないものの、WebKitから完全に独立したHTMLレンダリングエンジンであるGeckoを採用している。また、プライバシーを重視する傾向にあり、PWAに関連するWeb APIの策定に積極的であるGoogle Chromeとは対照的である。そのため、Google Chromeに加えてMozilla Firefoxも調査対象とする。
+
+次に、Web APIのWebブラウザー側の対応状況を調べる際に参照する文献の候補を示す。Can I use…~\cite{CanIUse}は様々なWebブラウザーがサポートする機能を検索できるWebサイトである。CC BY 4.0ライセンスを採用し、コミュニティーがWebサイトの情報を更新している。これに加えて、より信ぴょう性が高い情報を得るために、それぞれのWebブラウザーベンダーが提供しているRelease notesを参照する。これは、新しいバージョンのソフトウェアをリリースする際に公表される、以前のバージョンからの変更点を示す文書である。また、より詳細な情報を入手するために、必要に応じてWebブラウザーベンダーのブログ記事を参照する。
+\subsubsection{Web APIに対する意見や主張の調査}
+\label{subsubsection:Web APIに対する意見や主張の調査}
+それぞれのWeb APIに対する意見や主張は、Web APIの有用性を測るための1つの指標となり得る。Web APIに対する意見や主張を表明するための文書としてはStandards Positionsがある。これは、Web標準の技術に対する開発コミュニティーの立場をまとめたものである。主な立場としては賛成(support、positive)、中立(neutral)、反対(oppose、negative)がある。GitHubなどのプラットフォーム上で、特定のWeb標準の技術に対する賛否の議論が行われ、その後に開発コミュニティーの代表者が立場を表明する。まずは、Standards Positionsでの立場やその根拠となる議論を調査し、Web APIの現在の有用性を評価する。さらに、Web APIに対する議論の方向性を基にWeb APIの将来の見通しを考察する。
+
+メディアを制御するWeb APIのWebブラウザーの対応状況を表~\ref{table:メディアを制御するWeb APIの対応状況}に示す。そのWeb APIに対するベンダーの意見を表~\ref{table:メディアを制御するWeb APIに対する意見}に示す。
+\begin{table}
+  \caption{メディアを制御するWeb APIの対応状況}
+  \label{table:メディアを制御するWeb APIの対応状況}
+  \centering
+  \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    Media Capture and Streams API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    MediaStream Recording API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    Media Session API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    Media Stream Image Capture API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    Media Capabilities API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+  \end{tabular}
+\end{table}
+\begin{table}
+  \caption{メディアを制御するWeb APIに対する意見}
+  \label{table:メディアを制御するWeb APIに対する意見}
+    \centering
+    \begin{tabular}{|p{13em}|p{13em}|p{13em}|}
+        \hline
+        & Mozilla & WebKit \\ \hline
+        Media Capture and Streams API & 不明 & \cellcolor{green!25}OSの違いに柔軟に対処できる方法でOSがサポートする機能を公開できる\cite{WebKitMediaCaptureandStreamsAPI} \\ \hline
+        MediaStream Recording API & 不明 & 不明 \\ \hline
+        Media Session API & \cellcolor{green!25}モバイル端末で特に有用である~\cite{MozillaMediaSessionAPI} & 不明 \\ \hline
+        Media Stream Image Capture API & 不明 & 不明 \\ \hline
+        Media Capabilities API & \cellcolor{green!25}主要なWebサイトで実際に使用されている\cite{MozillaMediaCapabilitiesAPI} & 不明 \\ \hline
+    \end{tabular}
+\end{table}
+Media Capture and Streams APIはカメラによるストリーミングを提供する。MediaStream Recording APIと組み合わせることで、音声や動画のストリーミングを収録できる。これらのAPIを活用すると、画面共有やビデオ通話といった機能を簡単に実装できる。Media Stream Image Capture APIと組み合わせることで写真を撮影することもできる。getUserMedia()によってカメラやマイクへの明示的なアクセス許可を求められるため、ユーザーが処理の流れを理解しやすい点や、再生ボタンをクリックするなどのアクションに関連付けられている点で挙動が明確である。
+
+モジュールにアクセスするWeb APIのWebブラウザーの対応状況を表~\ref{table:モジュールにアクセスするWeb APIの対応状況}に示す。そのWeb APIに対するベンダーの意見を表~\ref{table:モジュールにアクセスするWeb APIに対する意見}に示す。
+\begin{table}
+  \caption{モジュールにアクセスするWeb APIの対応状況}
+  \label{table:モジュールにアクセスするWeb APIの対応状況}
+  \centering
+  \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    Geolocaion API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    Web Bluetooth API & \cellcolor{green!25}対応 & \cellcolor{red!25}非対応 \\ \hline
+    Web NFC API & \cellcolor{red!25}非対応 & \cellcolor{red!25}非対応 \\ \hline
+    Vibration API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+  \end{tabular}
+\end{table}
+\begin{table}
+    \centering
+    \caption{モジュールにアクセスするWeb APIに対する意見}
+    \label{table:モジュールにアクセスするWeb APIに対する意見}
+    \begin{tabular}{|p{13em}|p{13em}|p{13em}|}
+         \hline
+         & Mozilla & WebKit \\ \hline
+         Geolocaion API & 不明 & 不明 \\ \hline
+         Web Bluetooth API & \cellcolor{red!25}セマンティックではないインターフェイスがWebプラットフォームに公開される~\cite{MozillaWebBluetoothAPI} & 不明 \\ \hline
+         Web NFC API & \cellcolor{red!25}物理的な認証デバイスのデータをWebサイトが取得する可能性がある~\cite{MozillaWebNFCAPI} & 不明 \\ \hline
+         Vibration API & 不明 & \cellcolor{red!25}通知の仕組みが悪用される可能性がある \\ \hline
+    \end{tabular}
+\end{table}
+Geolocation APIはユーザーの位置情報を取得する。ユーザーの位置を地図上にプロットしたり、ユーザーの位置情報を用いて、パーソナライズされた情報を表示したい場合に便利である。プライバシー上の理由から明示的なアクセス許可やHTTPS通信が必要である。
+Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作する機能を提供する。しかし、WebアプリがBluetooth端末に接続する場合は、そのアプリがどのような意図でその端末に接続しようとしているのかが明確に定義できないため、潜在的な危険性が高いと指摘されている。
+
+バックグラウンド処理を行うWeb APIのWebブラウザーの対応状況を表~\ref{table:バックグラウンド処理を行うWeb APIの対応状況}に示す。そのWeb APIに対するベンダーの意見を表~\ref{table:バックグラウンド処理を行うWeb APIに対する意見}に示す。
+\begin{table}
+  \caption{バックグラウンド処理を行うWeb APIの対応状況}\label{table:バックグラウンド処理を行うWeb APIの対応状況}
+  \centering
+  \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    Background Tasks API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    Background Fetch API & \cellcolor{green!25}対応 & \cellcolor{red!25}非対応 \\ \hline
+    Background Synchronization API & \cellcolor{green!25}対応 & \cellcolor{red!25}非対応 \\ \hline
+  \end{tabular}
+\end{table}
+\begin{table}
+  \caption{バックグラウンド処理を行うWeb APIに対する意見}
+  \label{table:バックグラウンド処理を行うWeb APIに対する意見}
+    \centering
+    \begin{tabular}{|p{13em}|p{13em}|p{13em}|}
+        \hline
+        & Mozilla & WebKit \\ \hline
+        Background Tasks API & 不明 & 不明 \\ \hline
+        Background Fetch API & \cellcolor{red!25}バックグラウンドでスクリプトが実行される~\cite{MozillaBackgroundFetchAPI} & \cellcolor{red!25}ユーザーがWebサイトにアクセスしていないときにWebサイトのアクティビティーが実行される~\cite{WebKitBackgroundFetchAPI} \\ \hline
+        Background Synchronization API & \cellcolor{red!25}バッテリーが消耗しやすい、最初にアクセスしたネットワークと異なるネットワークでアクティビティーが発生する~\cite{MozillaBackgroundSynchronizationAPI} & \cellcolor{red!25}電力とセキュリティーの懸念がある \\ \hline
+    \end{tabular}
+\end{table}
+Background Tasks APIはタスクをキューに入れて優先度が高いものから順番に実行する。キューに入れられたタスクはバックグラウンドで実行されるため、Web Workerを使用せずにシステムの遅延を削減できる長所がある。Background Fetch APIは大容量のファイルをバックグラウンドでフェッチする。オフラインでフェッチリクエストが実行された場合は、ユーザーが再びオンラインになるまでプロセスを一時停止させることもできる。Background Fetch APIが実行する処理は実質的にはバックグラウンドでのダウンロードやアップロードであり、それらの処理の後にスクリプトがバックグラウンドで実行される可能性がある。ユーザーの明示的な操作を必須にすることや、Background Fetch APIがSame-Originのコンテンツのみを扱えるように制限するべきであるという声もある。Background Synchronization APIは安定したネットワーク接続が確立されるまでタスクを延期する。このAPIを使用して延期されたタスクは、異なるネットワーク上で実行される可能性があるため、ユーザーが意図しない処理が行われることが懸念されている。
+
+ファイルにアクセスするWeb APIのWebブラウザーの対応状況を表~\ref{table:ファイルにアクセスするWeb APIの対応状況}に示す。そのWeb APIに対するベンダーの意見を表~\ref{table:ファイルにアクセスするWeb APIに対する意見}に示す。
+\begin{table}
+  \caption{ファイルにアクセスするWeb APIの対応状況}\label{table:ファイルにアクセスするWeb APIの対応状況}
+  \centering
+  \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    File API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    File System Access API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    File System API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+  \end{tabular}
+\end{table}
+\begin{table}
+  \caption{ファイルにアクセスするWeb APIに対する意見}
+  \label{table:ファイルにアクセスするWeb APIに対する意見}
+    \centering
+    \begin{tabular}{|p{13em}|p{13em}|p{13em}|}
+        \hline
+        & Mozilla & WebKit \\ \hline
+        File API & 不明 & 不明 \\ \hline
+        File System Access API & \cellcolor{red!25}APIのリスクをユーザーに適切に伝える方法が不明確である\cite{MozillaFileSystemAccessAPI} & \cellcolor{red!25}ユーザーの利益を保護しながらローカルファイルシステムへの書き込みアクセスを許可する方法が不明確である~\cite{WebKitFileSystemAccessAPI} \\ \hline
+        File System API & 不明 & 不明\\ \hline
+    \end{tabular}
+\end{table}
+File APIは端末のファイルとそのコンテンツにアクセスする。File APIよりも汎用性が高いAPIとしてはFile System Access APIがある。File System Access APIは端末のファイルシステム上のファイルにアクセスしてファイルを読み込んだり、ファイルに書き込んだりできる。File System APIはWebブラウザーに仮想ドライブを作成し、そのストレージにファイルを保存するものであり、File System APIとFile System Access APIはそれぞれ異なるAPIである。File System Access APIは端末のすべてのディレクトリとファイルにアクセスする権限を持つため、悪用されるリスクがある。許可を求めるプロンプトの表示などによって、このAPIが行おうとしている操作をユーザーに分かりやすく提示することで安全性を確保できるという意見もある。
+
+通知を制御するWeb APIのWebブラウザーの対応状況を表~\ref{table:通知を制御するWeb API}に示す。そのWeb APIに対するベンダーの意見を表~\ref{table:通知を制御するWeb APIに対する意見}に示す。
+\begin{table}
+  \caption{通知を制御するWeb API}
+  \label{table:通知を制御するWeb API}
+  \centering
+  \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
+    \hline
+    & Google Chrome & Mozilla Firefox \\ \hline
+    Push API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    Notifications API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    Badging API & \cellcolor{green!25}対応 & \cellcolor{red!25}非対応 \\ \hline
+  \end{tabular}
+\end{table}
+\begin{table}
+  \caption{通知を制御するWeb APIに対する意見}
+  \label{table:通知を制御するWeb APIに対する意見}
+    \centering
+    \begin{tabular}{|p{13em}|p{13em}|p{13em}|}
+        \hline
+        & Mozilla & WebKit \\ \hline
+        Push API & 不明 & 不明 \\ \hline
+        Notifications API & 不明 & 不明 \\ \hline
+        Badging API & \cellcolor{green!25}書き込み専用であるためプライバシーの観点で優れている~\cite{MozillaBadgingAPI} & 不明 \\ \hline
+    \end{tabular}
+\end{table}
+Push APIはWebアプリがサーバーからプッシュ通知を受信する機能を提供する。Webアプリがフォアグラウンドで動作していなくても利用できるため、任意のイベントを通知してユーザーの関心を集められる。WebアプリからOSなどのシステムに対して通知を送るためにはNotifications APIを用いる。Badging APIを併用することで通知の数などの状態が変化したことをユーザーに通知できる。Notifications APIとBadging APIは、HTTPSでサーバーと通信しており、かつService WorkerなどのWebワーカーが動作しているWebアプリでのみ利用できる。
