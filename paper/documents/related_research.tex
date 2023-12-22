@@ -1,10 +1,11 @@
 \section{関連研究}
 \label{section:関連研究}
 関連研究としては、PWAを構成する要素の性質を調査したもの、PWAとモバイルネイティブアプリのパフォーマンスの比較によってPWAの有用性を評価したもの、PWAの開発方法に着目し、クロスプラットフォーム開発における役割を整理したものなどがある。それぞれの概要を説明し、関連研究における課題を整理する。
-\subsection{PWAの構成要素とその性質}
-\label{subsection:PWAの構成要素とその性質}
-PWAの構成要素にはApp Shell、Service Worker、Web Application Manifestがあり、それぞれの性質は以下の通りである~\cite{Tandel2018ProgressiveWebApps}。
-\subsubsection{App Shellの性質}\label{subsubsection:App Shellの性質}
+\subsection{PWAの要素の性質}
+\label{subsection:PWAの要素の性質}
+PWAを構成する要素であるApp Shell、Service Worker、Web Application Manifestのそれぞれの性質は以下の通りである~\cite{Tandel2018ProgressiveWebApps}。
+\subsubsection{App Shell}
+\label{subsubsection:App Shell}
 \begin{itemize}
     \item パフォーマンスが高い
     \begin{itemize}
@@ -19,8 +20,8 @@ PWAの構成要素にはApp Shell、Service Worker、Web Application Manifestが
         \item UIをキャッシュするためページ遷移を行う際のデータ使用量が削減される。これによってデータの使用効率が高くなり、より少ないデータ使用量でページをレンダリングできるようになる。
     \end{itemize}
 \end{itemize}
-\subsubsection{Service Workerの性質}
-\label{subsubsection:Service Workerの性質}
+\subsubsection{Service Worker}
+\label{subsubsection:Service Worker}
 \begin{itemize}
     \item オフラインアクセスを提供
     \begin{itemize}
@@ -39,15 +40,16 @@ PWAの構成要素にはApp Shell、Service Worker、Web Application Manifestが
         \item 一部のコンテンツのみをキャッシュしたり、一定の時間間隔でキャッシュを更新したりできるため、Cache Storageの使用量を削減してアプリのサイズを小さくしたり、古いコンテンツがキャッシュされたままになるのを回避できる。
     \end{itemize}
 \end{itemize}
-\subsubsection{Web Application Manifestの性質}\label{subsubsection:Web Application Manifestの性質}
+\subsubsection{Web Application Manifest}
+\label{subsubsection:Web Application Manifest}
 \begin{itemize}
     \item アプリに関する情報を提供
     \begin{itemize}
         \item アプリの名前、説明、作者、アイコンのパスなどの情報を提供できる。これらのメタデータをWebアプリに追加することで、Webアプリを特定のプラットフォームに適合させられる。
     \end{itemize}
 \end{itemize}
-\subsubsection{PWAの構成要素とその性質に関する研究の課題}
-\label{subsubsection:PWAの構成要素とその性質に関する研究の課題}
+\subsubsection{PWAの要素の性質に関する研究の課題}
+\label{subsubsection:PWAの要素の性質に関する研究の課題}
 実際のアプリでは、PWAが理想とする振る舞いを必ずしも実現できるとは限らない。例えば、バックグラウンドでのコンテンツの更新をサポートしている主なWebブラウザーは2023年11月時点でGoogle ChromeとMicrosoft Edgeのみであり、バックグラウンド同期に関する懸念も表明されている(詳しくは後述する)。また、Webブラウザー間でPWAの実装が異なるため、それを考慮する必要もある。
 \subsection{パフォーマンスの比較}
 \label{subsection:パフォーマンスの比較}
