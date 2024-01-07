@@ -85,7 +85,7 @@ Service Workerのキャッシュ戦略はfetchイベントとCacheインター�
 
 3つ目は画像をキャッシュする戦略である。観光案内アプリでは多くの画像が配信されるため、画像を積極的にキャッシュした際のパフォーマンスを知ることは、観光案内アプリでのPWAの有用性を評価する上で重要である。
 \subsection{Service Workerのパフォーマンスの計測}
-\label{subsubsection:Service Workerのパフォーマンスの計測}
+\label{subsection:Service Workerのパフォーマンスの計測}
 現在広く普及しているWebアプリの品質測定ツールとしてはLighthouseがある。Lighthouseを使用すると、任意のページに対してパフォーマンス、ユーザー補助、PWA、SEOなどの監査を実施できる。今回はパフォーマンスに着目しているため、パフォーマンスの監査のみを実施する。より正確な指標を得るために、LighthouseのNodeモジュールを使用してモバイル端末での読み込みをエミュレートする。
 
 LighthouseはChrome DevTools Protocol(CDP)というプロトコルを利用している。このプロトコルはプログラムからGoogle Chromeにアクセスできるようにするためのものである。このプロトコルを使用している主なライブラリとしてはchrome-remote-interface、Puppeteer、Ligthouseがある。chrome-remote-interfaceはJavaScriptのAPIを使用してCDPに低レベルでアクセスできる。PuppeteerはCDPの抽象化を提供し、Google Chromeをヘッドレスモードで実行することでWebブラウザーの操作を自動化する。Lighthouseはページのパフォーマンスと品質を改善する方法を見つける処理を自動化するためのライブラリであり、パフォーマンスを評価するために利用できる。
@@ -165,3 +165,17 @@ Lighthouseのパフォーマンスの値は0から1で表され、監査項目�
     \item csv形式のファイルにLighthouseが収集したデータが記録される
     \item データ分析ツールを用いてそのファイルに記録されたデータを分析する
 \end{enumerate}
+
+\subsection{ユーザーの操作に基づいたリソースの読み込みイベントの分析}
+\label{subsection:ユーザーの操作に基づいたリソースの読み込みイベントの分析}
+Lighthouseはページの読み込みのみを考慮してメトリクスを算出する。観光案内アプリに実装されることが多い観光地図はユーザーの操作に応じて画像を非同期で読み込むため、Lighthouseではそのパフォーマンスを正しく評価できない。そこで、自動テストライブラリの1つであるPuppeteerとResource Timing APIを用いて、観光地図の画像の読み込みイベントを分析する。Resource Timing APIはCSS、JavaScript、画像などのドキュメントに依存するリソースの処理時間を計測する。ネットワークコネクションが終了した後に、Resource Timing APIのコードを実行することで、そのページで読み込まれたあらゆるリソースの処理時間を取得できる。コードの例をソースコード~\ref{lst:Resource Timing APIによるリソースの処理時間の取得}に示す。
+
+\begin{lstlisting}[caption={Resource Timing APIによるリソースの処理時間の取得},label={lst:Resource Timing APIによるリソースの処理時間の取得}]
+performance.getEntriesByType('resource');
+\end{lstlisting}
+
+この分析では、PerformanceResourceTimingインターフェイスが提供するdurationプロパティーの値を用いて観光地図の画像の読み込み処理にかかった時間を計測する。
+
+リソースの読み込みイベントを分析する際は、~\autoref{subsection:Service Workerのパフォーマンスの計測}の評価方法と同様にネットワークスロットリングを使用して、異なるネットワーク環境における処理時間を計測する。それに加えて、Service Workerの導入による処理時間の変化も計測する。
+
+観光地図の操作パターンの一例として、Google Pixel 5を使用して1ページ下にスクロールする場合と、ズーム倍率を1だけ増加させる場合を考える。
