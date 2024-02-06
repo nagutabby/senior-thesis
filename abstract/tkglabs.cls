@@ -28,12 +28,7 @@
 \usepackage{arydshln} % 表における点線
 \renewcommand{\baselinestretch}{0.75} % 行間のつめ具合
 \usepackage{xurl}      % 折り返しできるURLの挿入
-\urlstyle{same}
 \usepackage{setspace} % 部分的に行間を変える
-
-\usepackage{newunicodechar}
-\newunicodechar{、}{，}
-\newunicodechar{。}{．}
 
 % ここまで -----------------------------------------------------------------
 
@@ -80,8 +75,7 @@
 %                       フォントの設定
 %ここから ------------------------------------------------------------------
 \usepackage[no-math,deluxe,expert,haranoaji]{luatexja-preset}
-\setmainjfont{Noto Serif}
-\setmainjfont{Noto Serif CJK JP}
+\setmainfont{TeX Gyre Termes} % 欧文フォントを変更
 
 % ここまで -----------------------------------------------------------------
 
@@ -179,3 +173,8 @@
 %%%% 表で使える太い線
 \newcommand{\Hline}{\noalign{\hrule height .8pt}} % 太い横線の定義
 % ここまで ------------------------------------------------------------------
+
+\urlstyle{same}
+\usepackage{newunicodechar}
+\newunicodechar{、}{，}
+\newunicodechar{。}{．}
