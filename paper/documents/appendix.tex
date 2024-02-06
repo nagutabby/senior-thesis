@@ -1,7 +1,7 @@
 \section*{付録}\addcontentsline{toc}{section}{付録}
-~\autoref{subsection:Service Workerのパフォーマンス}で使用したプログラムをソースコード~\ref{lst:Lighthouseを用いたパフォーマンスの計測}に示す。~\autoref{subsection:ユーザーの操作に基づいて読み込まれた画像の処理時間}で使用したプログラムをソースコード~\ref{lst:PuppeteerとResource Timing APIを用いたページ読み込み時の画像の読み込み時間の計測}、~\ref{lst:PuppeteerとResource Timing APIを用いたスクロール時の画像の読み込み時間の計測}、~\ref{lst:PuppeteerとResource Timing APIを用いたズーム時の画像の読み込み時間の計測}に示す。
+~\autoref{subsection:Service Workerのパフォーマンス}で使用したプログラムをソースコード~\ref{lst:Lighthouseを用いたパフォーマンスの測定}に示す。~\autoref{subsection:ユーザーの操作に基づいて読み込まれた画像の処理時間}で使用したプログラムをソースコード~\ref{lst:PuppeteerとResource Timing APIを用いたページ読み込み時の画像の読み込み時間の測定}、~\ref{lst:PuppeteerとResource Timing APIを用いたスクロール時の画像の読み込み時間の測定}、~\ref{lst:PuppeteerとResource Timing APIを用いたズーム時の画像の読み込み時間の測定}に示す。
 
-\begin{lstlisting}[caption={Lighthouseを用いたパフォーマンスの計測},label={lst:Lighthouseを用いたパフォーマンスの計測}]
+\begin{lstlisting}[caption={Lighthouseを用いたパフォーマンスの測定},label={lst:Lighthouseを用いたパフォーマンスの測定}]
 import fs from "fs";
 import lighthouse, { Flags } from "lighthouse";
 import * as chromeLauncher from "chrome-launcher";
@@ -97,7 +97,7 @@ for (const prefecture of prefectures) {
 chrome.kill();
 \end{lstlisting}
 
-\begin{lstlisting}[caption={PuppeteerとResource Timing APIを用いたページ読み込み時の画像の読み込み時間の計測},label={lst:PuppeteerとResource Timing APIを用いたページ読み込み時の画像の読み込み時間の計測}]
+\begin{lstlisting}[caption={PuppeteerとResource Timing APIを用いたページ読み込み時の画像の読み込み時間の測定},label={lst:PuppeteerとResource Timing APIを用いたページ読み込み時の画像の読み込み時間の測定}]
 import puppeteer, { KnownDevices } from "puppeteer";
 import fs from "fs";
 
@@ -172,7 +172,7 @@ for (const prefecture of prefectures) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}[caption={PuppeteerとResource Timing APIを用いたスクロール時の画像の読み込み時間の計測},label={lst:PuppeteerとResource Timing APIを用いたスクロール時の画像の読み込み時間の計測}]
+\begin{lstlisting}[caption={PuppeteerとResource Timing APIを用いたスクロール時の画像の読み込み時間の測定},label={lst:PuppeteerとResource Timing APIを用いたスクロール時の画像の読み込み時間の測定}]
 import puppeteer, { KnownDevices } from "puppeteer";
 import { setTimeout } from 'node:timers/promises';
 import fs from "fs";
@@ -266,7 +266,7 @@ for (const prefecture of prefectures) {
 
 \end{lstlisting}
 
-\begin{lstlisting}[caption={PuppeteerとResource Timing APIを用いたズーム時の画像の読み込み時間の計測},label={lst:PuppeteerとResource Timing APIを用いたズーム時の画像の読み込み時間の計測}]
+\begin{lstlisting}[caption={PuppeteerとResource Timing APIを用いたズーム時の画像の読み込み時間の測定},label={lst:PuppeteerとResource Timing APIを用いたズーム時の画像の読み込み時間の測定}]
 import puppeteer, { KnownDevices } from "puppeteer";
 import { setTimeout } from 'node:timers/promises';
 import fs from "fs";
