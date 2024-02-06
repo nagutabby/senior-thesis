@@ -153,11 +153,11 @@ Redditから画像とテキストを取得して表示する機能を、PWAとAn
   \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
     \hline
     & Google Chrome & Mozilla Firefox \\ \hline
-    Media Capture and Streams API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    MediaStream Recording API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    Media Session API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    Media Stream Image Capture API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    Media Capabilities API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    Media Capture and Streams API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    MediaStream Recording API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    Media Session API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    Media Stream Image Capture API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    Media Capabilities API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
   \end{tabular}
 \end{table}
 \begin{table}
@@ -167,11 +167,11 @@ Redditから画像とテキストを取得して表示する機能を、PWAとAn
     \begin{tabular}{|p{13em}|p{13em}|p{13em}|}
         \hline
         & Mozilla & WebKit \\ \hline
-        Media Capture and Streams API & 不明 & \cellcolor{green!25}OSの違いに柔軟に対処できる方法でOSがサポートする機能を公開できる\cite{WebKitMediaCaptureandStreamsAPI} \\ \hline
+        Media Capture and Streams API & 不明 & \cellcolor{gray!10}OSの違いに柔軟に対処できる方法でOSがサポートする機能を公開できる\cite{WebKitMediaCaptureandStreamsAPI} \\ \hline
         MediaStream Recording API & 不明 & 不明 \\ \hline
-        Media Session API & \cellcolor{green!25}モバイル端末で特に有用である~\cite{MozillaMediaSessionAPI} & 不明 \\ \hline
+        Media Session API & \cellcolor{gray!10}モバイル端末で特に有用である~\cite{MozillaMediaSessionAPI} & 不明 \\ \hline
         Media Stream Image Capture API & 不明 & 不明 \\ \hline
-        Media Capabilities API & \cellcolor{green!25}主要なWebサイトで実際に使用されている\cite{MozillaMediaCapabilitiesAPI} & 不明 \\ \hline
+        Media Capabilities API & \cellcolor{gray!10}主要なWebサイトで実際に使用されている\cite{MozillaMediaCapabilitiesAPI} & 不明 \\ \hline
     \end{tabular}
 \end{table}
 Media Capture and Streams APIはカメラによるストリーミングを提供する。MediaStream Recording APIと組み合わせることで、音声や動画のストリーミングを収録できる。これらのAPIを活用すると、画面共有やビデオ通話といった機能を簡単に実装できる。Media Stream Image Capture APIと組み合わせることで写真を撮影することもできる。getUserMedia()によってカメラやマイクへの明示的なアクセス許可を求められるため、ユーザーが処理の流れを理解しやすい点や、再生ボタンをクリックするなどのアクションに関連付けられている点で挙動が明確である。
@@ -184,10 +184,10 @@ Media Capture and Streams APIはカメラによるストリーミングを提供
   \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
     \hline
     & Google Chrome & Mozilla Firefox \\ \hline
-    Geolocaion API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    Web Bluetooth API & \cellcolor{green!25}対応 & \cellcolor{red!25}非対応 \\ \hline
-    Web NFC API & \cellcolor{red!25}非対応 & \cellcolor{red!25}非対応 \\ \hline
-    Vibration API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    Geolocaion API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    Web Bluetooth API & \cellcolor{gray!10}対応 & \cellcolor{gray!30}非対応 \\ \hline
+    Web NFC API & \cellcolor{gray!30}非対応 & \cellcolor{gray!30}非対応 \\ \hline
+    Vibration API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
   \end{tabular}
 \end{table}
 \begin{table}
@@ -198,13 +198,13 @@ Media Capture and Streams APIはカメラによるストリーミングを提供
          \hline
          & Mozilla & WebKit \\ \hline
          Geolocaion API & 不明 & 不明 \\ \hline
-         Web Bluetooth API & \cellcolor{red!25}セマンティックではないインターフェイスがWebプラットフォームに公開される~\cite{MozillaWebBluetoothAPI} & 不明 \\ \hline
-         Web NFC API & \cellcolor{red!25}物理的な認証デバイスのデータをWebサイトが取得する可能性がある~\cite{MozillaWebNFCAPI} & 不明 \\ \hline
-         Vibration API & 不明 & \cellcolor{red!25}通知の仕組みが悪用される可能性がある \\ \hline
+         Web Bluetooth API & \cellcolor{gray!30}セマンティックではないインターフェイスがWebプラットフォームに公開される~\cite{MozillaWebBluetoothAPI} & 不明 \\ \hline
+         Web NFC API & \cellcolor{gray!30}物理的な認証デバイスのデータをWebサイトが取得する可能性がある~\cite{MozillaWebNFCAPI} & 不明 \\ \hline
+         Vibration API & 不明 & \cellcolor{gray!30}通知の仕組みが悪用される可能性がある \\ \hline
     \end{tabular}
 \end{table}
 Geolocation APIはユーザーの位置情報を取得する。ユーザーの位置を地図上にプロットしたり、ユーザーの位置情報を用いて、パーソナライズされた情報を表示したい場合に便利である。プライバシー上の理由から明示的なアクセス許可やHTTPS通信が必要である。
-Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作する機能を提供する。しかし、WebアプリがBluetooth端末に接続する場合は、そのアプリがどのような意図でその端末に接続しようとしているのかが明確に定義できないため、潜在的な危険性が高いと指摘されている。
+Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作する機能を提供する。しかし、WebアプリがBluetooth端末に接続する場合に、そのアプリがどのような意図でその端末に接続しようとしているのかが明確に定義できないため、潜在的な危険性が高いと指摘されている。
 
 バックグラウンド処理を行うWeb APIのWebブラウザーの対応状況を表~\ref{table:バックグラウンド処理を行うWeb APIの対応状況}に示す。そのWeb APIに対するベンダーの意見を表~\ref{table:バックグラウンド処理を行うWeb APIに対する意見}に示す。
 \begin{table}
@@ -213,9 +213,9 @@ Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作す�
   \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
     \hline
     & Google Chrome & Mozilla Firefox \\ \hline
-    Background Tasks API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    Background Fetch API & \cellcolor{green!25}対応 & \cellcolor{red!25}非対応 \\ \hline
-    Background Synchronization API & \cellcolor{green!25}対応 & \cellcolor{red!25}非対応 \\ \hline
+    Background Tasks API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    Background Fetch API & \cellcolor{gray!10}対応 & \cellcolor{gray!30}非対応 \\ \hline
+    Background Synchronization API & \cellcolor{gray!10}対応 & \cellcolor{gray!30}非対応 \\ \hline
   \end{tabular}
 \end{table}
 \begin{table}
@@ -226,8 +226,8 @@ Web Bluetooth APIはBluetooth Low Energyの周辺機器に接続して操作す�
         \hline
         & Mozilla & WebKit \\ \hline
         Background Tasks API & 不明 & 不明 \\ \hline
-        Background Fetch API & \cellcolor{red!25}バックグラウンドでスクリプトが実行される~\cite{MozillaBackgroundFetchAPI} & \cellcolor{red!25}ユーザーがWebサイトにアクセスしていないときにWebサイトのアクティビティーが実行される~\cite{WebKitBackgroundFetchAPI} \\ \hline
-        Background Synchronization API & \cellcolor{red!25}バッテリーが消耗しやすい、最初にアクセスしたネットワークと異なるネットワークでアクティビティーが発生する~\cite{MozillaBackgroundSynchronizationAPI} & \cellcolor{red!25}電力とセキュリティーの懸念がある \\ \hline
+        Background Fetch API & \cellcolor{gray!30}バックグラウンドでスクリプトが実行される~\cite{MozillaBackgroundFetchAPI} & \cellcolor{gray!30}ユーザーがWebサイトにアクセスしていないときにWebサイトのアクティビティーが実行される~\cite{WebKitBackgroundFetchAPI} \\ \hline
+        Background Synchronization API & \cellcolor{gray!30}バッテリーが消耗しやすい、最初にアクセスしたネットワークと異なるネットワークでアクティビティーが発生する~\cite{MozillaBackgroundSynchronizationAPI} & \cellcolor{gray!30}電力とセキュリティーの懸念がある \\ \hline
     \end{tabular}
 \end{table}
 Background Tasks APIはタスクをキューに入れて優先度が高いものから順番に実行する。キューに入れられたタスクはバックグラウンドで実行されるため、Web Workerを使用せずにシステムの遅延を削減できる長所がある。Background Fetch APIは大容量のファイルをバックグラウンドでフェッチする。オフラインでフェッチリクエストが実行された場合は、ユーザーが再びオンラインになるまでプロセスを一時停止させることもできる。Background Fetch APIが実行する処理は実質的にはバックグラウンドでのダウンロードやアップロードであり、それらの処理の後にスクリプトがバックグラウンドで実行される可能性がある。ユーザーの明示的な操作を必須にすることや、Background Fetch APIがSame-Originのコンテンツのみを扱えるように制限するべきであるという声もある。Background Synchronization APIは安定したネットワーク接続が確立されるまでタスクを延期する。このAPIを使用して延期されたタスクは、異なるネットワーク上で実行される可能性があるため、ユーザーが意図しない処理が行われることが懸念されている。
@@ -239,9 +239,9 @@ Background Tasks APIはタスクをキューに入れて優先度が高いもの
   \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
     \hline
     & Google Chrome & Mozilla Firefox \\ \hline
-    File API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    File System Access API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    File System API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
+    File API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    File System Access API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    File System API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
   \end{tabular}
 \end{table}
 \begin{table}
@@ -252,7 +252,7 @@ Background Tasks APIはタスクをキューに入れて優先度が高いもの
         \hline
         & Mozilla & WebKit \\ \hline
         File API & 不明 & 不明 \\ \hline
-        File System Access API & \cellcolor{red!25}APIのリスクをユーザーに適切に伝える方法が不明確である\cite{MozillaFileSystemAccessAPI} & \cellcolor{red!25}ユーザーの利益を保護しながらローカルファイルシステムへの書き込みアクセスを許可する方法が不明確である~\cite{WebKitFileSystemAccessAPI} \\ \hline
+        File System Access API & \cellcolor{gray!30}APIのリスクをユーザーに適切に伝える方法が不明確である\cite{MozillaFileSystemAccessAPI} & \cellcolor{gray!30}ユーザーの利益を保護しながらローカルファイルシステムへの書き込みアクセスを許可する方法が不明確である~\cite{WebKitFileSystemAccessAPI} \\ \hline
         File System API & 不明 & 不明\\ \hline
     \end{tabular}
 \end{table}
@@ -266,9 +266,9 @@ File APIは端末のファイルとそのコンテンツにアクセスする。
   \begin{tabular}{|p{13em}|p{8em}|p{8em}|}
     \hline
     & Google Chrome & Mozilla Firefox \\ \hline
-    Push API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    Notifications API & \cellcolor{green!25}対応 & \cellcolor{green!25}対応 \\ \hline
-    Badging API & \cellcolor{green!25}対応 & \cellcolor{red!25}非対応 \\ \hline
+    Push API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    Notifications API & \cellcolor{gray!10}対応 & \cellcolor{gray!10}対応 \\ \hline
+    Badging API & \cellcolor{gray!10}対応 & \cellcolor{gray!30}非対応 \\ \hline
   \end{tabular}
 \end{table}
 \begin{table}
@@ -280,7 +280,7 @@ File APIは端末のファイルとそのコンテンツにアクセスする。
         & Mozilla & WebKit \\ \hline
         Push API & 不明 & 不明 \\ \hline
         Notifications API & 不明 & 不明 \\ \hline
-        Badging API & \cellcolor{green!25}書き込み専用であるためプライバシーの観点で優れている~\cite{MozillaBadgingAPI} & 不明 \\ \hline
+        Badging API & \cellcolor{gray!10}書き込み専用であるためプライバシーの観点で優れている~\cite{MozillaBadgingAPI} & 不明 \\ \hline
     \end{tabular}
 \end{table}
 Push APIはWebアプリがサーバーからプッシュ通知を受信する機能を提供する。Webアプリがフォアグラウンドで動作していなくても利用できるため、任意のイベントを通知してユーザーの関心を集められる。WebアプリからOSなどのシステムに対して通知を送るためにはNotifications APIを用いる。Badging APIを併用することで通知の数などの状態が変化したことをユーザーに通知できる。Notifications APIとBadging APIは、HTTPSでサーバーと通信しており、かつService WorkerなどのWebワーカーが動作しているWebアプリでのみ利用できる。
